@@ -11,6 +11,7 @@
     <modules>
         <module>spring_ioc</module>
         <module>spring_anno</module>
+        <module>spring_mvc</module>
     </modules>
 
     <properties>
@@ -21,6 +22,8 @@
         <c3p0.version>0.9.1.2</c3p0.version>
         <druid.version>1.2.8</druid.version>
         <mysql.version>8.0.26</mysql.version>
+        <servlet.version>4.0.1</servlet.version>
+        <jsp.version>2.3.3</jsp.version>
     </properties>
 
     <dependencyManagement>
@@ -55,6 +58,16 @@
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${servlet.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet.jsp</groupId>
+                <artifactId>javax.servlet.jsp-api</artifactId>
+                <version>${jsp.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
