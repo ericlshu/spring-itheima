@@ -1,8 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="userDao" class="com.eric.dao.impl.UserDaoImpl"/>
+    <!--********** 引入其他配置文件，分模块开发 **********-->
+    <import resource="applicationContext-user.xml"/>
+
+    <!--********** Bean实例化三种方式 **********-->
+
+    <!--1. 无参构造-->
+    <bean id="userDao1" class="com.eric.dao.impl.UserDaoImpl"/>
+
+    <!--2. 静态工厂-->
+    <bean id="userDao2" class="com.eric.factory.StaticFactory" factory-method="getUserDao"/>
+
+    <!--3. 动态工厂-->
+    <bean id="factory" class="com.eric.factory.DynamicFactory"/>
+    <bean id="userDao3" factory-bean="factory" factory-method="getUserDao"/>
+
+    <!--********** 依赖注入(Dependency Injection) **********-->
+
+    <!--1. set方法注入-->
+    <bean id="userService1" class="com.eric.service.impl.UserServiceImpl">
+        <property name="userDao" ref="userDao1"/>
+    </bean>
+
+    <!--1.1 p命名空间注入-->
+    <bean id="userService2" class="com.eric.service.impl.UserServiceImpl" p:userDao-ref="userDao1"/>
+
+    <!--2. 构造方法注入-->
+    <bean id="userService3" class="com.eric.service.impl.UserServiceImpl">
+        <constructor-arg name="userDao" ref="userDao1"/>
+    </bean>
+
+    <!--********** Bean依赖注入的数据类型 **********-->
+
+    <!--<bean id="user1" class="com.eric.domain.User">
+        <property name="name" value="tom"/>
+        <property name="addr" value="Beijing"/>
+    </bean>
+    <bean id="user2" class="com.eric.domain.User">
+        <property name="name" value="jerry"/>
+        <property name="addr" value="Tianjin"/>
+    </bean>-->
+
+    <bean id="userDao" class="com.eric.dao.impl.UserDaoImpl">
+        <!--普通数据类型-->
+        <property name="name" value="eric"/>
+        <property name="age" value="28"/>
+
+        <!--集合数据类型-->
+        <property name="list">
+            <list>
+                <value>aaa</value>
+                <value>bbb</value>
+                <value>ccc</value>
+            </list>
+        </property>
+
+        <!--引用数据类型-->
+        <property name="userMap">
+            <map>
+                <entry key="u1" value-ref="user1"/>
+                <entry key="u2" value-ref="user2"/>
+            </map>
+        </property>
+
+        <property name="properties">
+            <props>
+                <prop key="p1">property_1</prop>
+                <prop key="p2">property_2</prop>
+            </props>
+        </property>
+    </bean>
 
 </beans>
