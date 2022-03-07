@@ -1,3 +1,5 @@
+package com.eric;
+
 import com.eric.config.SpringConfiguration;
 import com.eric.service.UserService;
 import org.junit.Test;
