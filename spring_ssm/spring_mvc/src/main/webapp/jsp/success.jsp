@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Hello SpringMVC!</h1>
+<h2>Hello ${username}, this is SpringMVC Demo Page!</h2>
 </body>
 </html>
