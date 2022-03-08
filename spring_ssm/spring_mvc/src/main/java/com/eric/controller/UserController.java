@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @date 2022-03-08 13:33
  */
 @Controller
+@RequestMapping("/user")
 public class UserController {
     @RequestMapping("/quick")
     public String save()
     {
         System.out.println("save user in controller ...");
-        return "success.jsp";
+        return "success";
     }
 }
