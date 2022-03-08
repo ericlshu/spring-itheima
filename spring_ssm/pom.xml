@@ -15,7 +15,8 @@
     </modules>
 
     <properties>
-        <maven.compiler>11</maven.compiler>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <spring.version>5.3.16</spring.version>
         <junit.version>4.13.2</junit.version>
         <c3p0.version>0.9.1.2</c3p0.version>
