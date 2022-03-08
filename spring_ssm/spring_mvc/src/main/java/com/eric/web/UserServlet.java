@@ -1,9 +1,11 @@
 package com.eric.web;
 
+import com.eric.listener.WebApplicationContextUtils;
 import com.eric.service.UserService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +22,11 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
-        UserService userService = (UserService) applicationContext.getBean("userService");
+        // ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+        ServletContext servletContext = this.getServletContext();
+        // ApplicationContext applicationContext = (ApplicationContext) servletContext.getAttribute("applicationContext");
+        ApplicationContext applicationContext = WebApplicationContextUtils.getApplicationContext(servletContext);
+        UserService userService = applicationContext.getBean(UserService.class);
         userService.save();
         super.doGet(req, resp);
     }

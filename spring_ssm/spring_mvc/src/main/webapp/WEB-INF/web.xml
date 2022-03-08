@@ -3,6 +3,16 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
+  <!--全局参数-->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:applicationContext.xml</param-value>
+  </context-param>
+
+  <listener>
+    <listener-class>com.eric.listener.ContextLoaderListener</listener-class>
+  </listener>
+
   <servlet>
     <servlet-name>userServlet</servlet-name>
     <servlet-class>com.eric.web.UserServlet</servlet-class>
