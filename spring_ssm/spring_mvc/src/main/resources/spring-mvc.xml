@@ -31,8 +31,35 @@
     <!--    </property>-->
     <!--</bean>-->
 
+    <!--声明转换器-->
+    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <list>
+                <bean class="com.eric.converter.DateConverter"/>
+            </list>
+        </property>
+    </bean>
+
     <!--自动加载RequestMappingHandlerMapping（处理映射器）和RequestMappingHandlerAdapter（处理适配器）-->
     <!--可用在Spring-xml.xml配置文件中使用,替代注解处理器和适配器的配置。-->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven conversion-service="conversionService"/>
+
+    <!--SpringMVC的前端控制器DispatcherServlet的url-pattern配置的是/,代表对所有的资源都进行过滤操作-->
+    <!--使用以下两类注解对静态资源放行-->
+    <!--1. 指定静态资源类型和路径-->
+    <mvc:resources mapping="/js/**" location="/js/"/>
+    <mvc:resources mapping="/img/**" location="/img/"/>
+    <!--2. 找不到资源时交由原始容器(tomcat)进行资源处理-->
+    <mvc:default-servlet-handler/>
+
+    <!--配置文件上传解析器-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--上传文件总大小-->
+        <property name="maxUploadSize" value="5242800"/>
+        <!--上传单个文件的大小-->
+        <property name="maxUploadSizePerFile" value="5242800"/>
+        <!--上传文件的编码类型-->
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
 
 </beans>
