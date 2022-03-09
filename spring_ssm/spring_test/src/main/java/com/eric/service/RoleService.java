@@ -26,4 +26,9 @@ public class RoleService {
     {
         return roleDao.findAll();
     }
+
+    public void save(Role role)
+    {
+        roleDao.save(role);
+    }
 }

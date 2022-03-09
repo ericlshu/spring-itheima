@@ -90,7 +90,7 @@
 			</section>
 			<!-- 内容头部 /-->
 
-			<form action="${pageContext.request.contextPath}/role/save.do"
+			<form action="${pageContext.request.contextPath}/role/save"
 				method="post">
 				<!-- 正文区域 -->
 				<section class="content"> <!--产品信息-->
@@ -109,7 +109,6 @@
 							<input type="text" class="form-control" name="roleDesc"
 								placeholder="角色描述" value="">
 						</div>
-										
 
 					</div>
 				</div>
@@ -245,7 +244,7 @@
 		}
 
 	</script>
-	
+
 
 </body>
 

@@ -27,4 +27,9 @@ public class RoleDao {
     {
         return jdbcTemplate.query("select * from sys_role", new BeanPropertyRowMapper<>(Role.class));
     }
+
+    public void save(Role role)
+    {
+        jdbcTemplate.update("insert into sys_role values(?,?,?)",null,role.getRoleName(),role.getRoleDesc());
+    }
 }
