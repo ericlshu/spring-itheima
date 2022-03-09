@@ -46,11 +46,11 @@ public class UserDao {
                 PreparedStatement preparedStatement = con.prepareStatement(
                         "insert into sys_user values(?,?,?,?,?)",
                         PreparedStatement.RETURN_GENERATED_KEYS);
-                preparedStatement.setObject(1,null);
-                preparedStatement.setString(2,user.getUsername());
-                preparedStatement.setString(3,user.getEmail());
-                preparedStatement.setString(4,user.getPassword());
-                preparedStatement.setString(5,user.getPhoneNum());
+                preparedStatement.setObject(1, null);
+                preparedStatement.setString(2, user.getUsername());
+                preparedStatement.setString(3, user.getEmail());
+                preparedStatement.setString(4, user.getPassword());
+                preparedStatement.setString(5, user.getPhoneNum());
                 return preparedStatement;
             }
         };
@@ -67,5 +67,15 @@ public class UserDao {
             jdbcTemplate.update("insert into sys_user_role values(?,?)", userId, roleId);
         }
 
+    }
+
+    public void deleteUserRoleMappingByUserId(Long userId)
+    {
+        jdbcTemplate.update("delete from sys_user_role where userId = ?", userId);
+    }
+
+    public void deleteUserById(Long userId)
+    {
+        jdbcTemplate.update("delete from sys_user where id = ?", userId);
     }
 }

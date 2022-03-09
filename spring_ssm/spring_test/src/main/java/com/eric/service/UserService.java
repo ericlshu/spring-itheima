@@ -50,4 +50,10 @@ public class UserService {
 
 
     }
+
+    public void delete(Long userId)
+    {
+        userDao.deleteUserRoleMappingByUserId(userId);
+        userDao.deleteUserById(userId);
+    }
 }
