@@ -42,4 +42,12 @@ public class UserService {
 
         return userList;
     }
+
+    public void save(User user, Long[] roleIds)
+    {
+        Long userId = userDao.save(user);
+        userDao.saveUserRoleMapping(userId, roleIds);
+
+
+    }
 }
