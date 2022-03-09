@@ -13,6 +13,7 @@
         <module>spring_anno</module>
         <module>spring_mvc</module>
         <module>spring_jdbc</module>
+        <module>spring_test</module>
     </modules>
 
     <properties>
@@ -28,6 +29,10 @@
         <jackson.version>2.13.2</jackson.version>
         <fileupload.version>1.4</fileupload.version>
         <commons-io.version>2.11.0</commons-io.version>
+        <logging.version>1.2</logging.version>
+        <log4j12.version>1.7.36</log4j12.version>
+        <log4j-core.version>2.17.2</log4j-core.version>
+        <jstl-api.version>1.2</jstl-api.version>
     </properties>
 
     <dependencyManagement>
@@ -117,6 +122,26 @@
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>${commons-io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>${logging.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${log4j12.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${log4j-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet.jsp.jstl</groupId>
+                <artifactId>jstl-api</artifactId>
+                <version>${jstl-api.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
