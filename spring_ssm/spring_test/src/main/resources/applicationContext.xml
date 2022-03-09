@@ -26,4 +26,15 @@
     <bean id="roleService" class="com.eric.service.RoleService">
         <property name="roleDao" ref="roleDao"/>
     </bean>
+
+    <bean id="userDao" class="com.eric.dao.UserDao">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+
+    <bean id="userService" class="com.eric.service.UserService">
+        <property name="userDao" ref="userDao"/>
+        <property name="roleDao" ref="roleDao"/>
+    </bean>
+
+
 </beans>

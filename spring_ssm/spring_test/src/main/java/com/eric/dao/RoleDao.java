@@ -30,6 +30,13 @@ public class RoleDao {
 
     public void save(Role role)
     {
-        jdbcTemplate.update("insert into sys_role values(?,?,?)",null,role.getRoleName(),role.getRoleDesc());
+        jdbcTemplate.update("insert into sys_role values(?,?,?)", null, role.getRoleName(), role.getRoleDesc());
+    }
+
+    public List<Role> findRolesByUserId(Long id)
+    {
+        return jdbcTemplate.query(
+                "select r.* from sys_user_role ur join sys_role r on r.id = ur.roleId where ur.userId = ?",
+                new BeanPropertyRowMapper<>(Role.class), id);
     }
 }
