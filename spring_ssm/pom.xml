@@ -12,6 +12,7 @@
         <module>spring_ioc</module>
         <module>spring_anno</module>
         <module>spring_mvc</module>
+        <module>spring_jdbc</module>
     </modules>
 
     <properties>
@@ -49,6 +50,16 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-webmvc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
                 <version>${spring.version}</version>
             </dependency>
             <dependency>
