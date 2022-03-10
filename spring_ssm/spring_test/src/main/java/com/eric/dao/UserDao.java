@@ -1,6 +1,7 @@
 package com.eric.dao;
 
 import com.eric.domain.User;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -66,7 +67,6 @@ public class UserDao {
         {
             jdbcTemplate.update("insert into sys_user_role values(?,?)", userId, roleId);
         }
-
     }
 
     public void deleteUserRoleMappingByUserId(Long userId)
@@ -77,5 +77,11 @@ public class UserDao {
     public void deleteUserById(Long userId)
     {
         jdbcTemplate.update("delete from sys_user where id = ?", userId);
+    }
+
+    public User findByUsernameAndPassword(String username, String password) throws EmptyResultDataAccessException
+    {
+        return jdbcTemplate.queryForObject("select * from sys_user where username = ? and password = ?",
+                new BeanPropertyRowMapper<>(User.class), username, password);
     }
 }

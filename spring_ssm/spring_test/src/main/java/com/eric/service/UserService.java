@@ -4,6 +4,7 @@ import com.eric.dao.RoleDao;
 import com.eric.dao.UserDao;
 import com.eric.domain.Role;
 import com.eric.domain.User;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.util.List;
 
@@ -55,5 +56,19 @@ public class UserService {
     {
         userDao.deleteUserRoleMappingByUserId(userId);
         userDao.deleteUserById(userId);
+    }
+
+    public User login(String username, String password)
+    {
+        User user;
+        try
+        {
+            user = userDao.findByUsernameAndPassword(username, password);
+        }
+        catch (EmptyResultDataAccessException exception)
+        {
+            return null;
+        }
+        return user;
     }
 }
