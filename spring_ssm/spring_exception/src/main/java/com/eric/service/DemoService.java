@@ -1,6 +1,6 @@
 package com.eric.service;
 
-import com.eric.excetion.MyException;
+import com.eric.exception.MyException;
 import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;

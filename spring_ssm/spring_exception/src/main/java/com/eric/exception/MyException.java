@@ -1,4 +1,4 @@
-package com.eric.excetion;
+package com.eric.exception;
 
 /**
  * Description :
@@ -6,5 +6,5 @@ package com.eric.excetion;
  * @author Eric L SHU
  * @date 2022-03-10 20:39
  */
-public class MyException extends Throwable {
+public class MyException extends Exception {
 }

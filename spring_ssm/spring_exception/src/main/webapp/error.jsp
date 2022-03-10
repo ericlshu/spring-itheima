@@ -6,6 +6,6 @@
 </head>
 <body>
     <h1>通用的错误提示页面</h1>
-    <h1>${info}</h1>
+    <h2>${info}</h2>
 </body>
 </html>

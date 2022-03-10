@@ -26,3 +26,4 @@ hs_err_pid*
 *.iml
 
 /spring_ssm/*/target/
+/out/

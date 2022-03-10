@@ -1,5 +1,6 @@
 package com.eric.controller;
 
+import com.eric.exception.MyException;
 import com.eric.service.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,7 @@ public class DemoController {
     private DemoService demoService;
 
     @RequestMapping("/show")
-    public String show(@RequestParam(value = "name", required = false) String name)
+    public String show() throws MyException
     {
         System.out.println("show running ...");
         demoService.show1();
