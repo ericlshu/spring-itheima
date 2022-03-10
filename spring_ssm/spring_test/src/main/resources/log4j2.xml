@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--The level of internal Log4j events that should be logged to the console.
+    Valid values for this attribute are "trace", "debug", "info", "warn", "error" and "fatal".
+    Log4j will log details about initialization, rollover and other internal actions to the status logger.
+    Prioritization: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL
+    Setting status="trace" is one of the first tools available to you if you need to troubleshoot log4j.-->
+<!--monitorInterval：The minimum amount of time, in seconds, that must elapse before the file configuration is checked for changes-->
+<configuration status="warn" monitorInterval="30">
+
+    <properties>
+        <property name="logFilePath">${sys:user.home}/logs</property>
+    </properties>
+
+    <appenders>
+        <console name="console" target="SYSTEM_OUT">
+            <!--<PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>-->
+            <PatternLayout charset="UTF-8" pattern="[%d{HH:mm:ss:SSS}] [%-5p] - %l - %m%n"/>
+            <!--%-d{yyyy-MM-dd HH:mm:ss} [%t] [%-5p] %c{1} - %m%n-->
+            <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+        </console>
+
+        <File name="dailyLogFile" fileName="${logFilePath}/${date:yyyy-MM-dd}.log" append="true">
+            <PatternLayout pattern="[%d{HH:mm:ss.SSS}] [%-5level] - %C.%M(%L) - %msg%xEx%n"/>
+        </File>
+
+        <RollingFile name="rollingLogFileDebug"
+                     fileName="${logFilePath}/debug.log"
+                     filePattern="${logFilePath}/debug-%d{yyyy-MM-dd}-%i.log">
+            <!--filePattern="${logFilePath}/${date:yyyy-MM}/info-%d{yyyy-MM-dd}.log">-->
+            <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="[%d{HH:mm:ss.SSS}] [%-5level] - %C.%M(%L) - %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="1 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+
+        <!--ThresholdFilter : 日志输出过滤-->
+        <!--level="info"        : 日志级别
+            onMatch="ACCEPT"    : 级别在info之上则接受
+            onMismatch="DENY"   : 级别在info之下则拒绝-->
+        <!--Policies:日志滚动策略-->
+        <!--TimeBasedTriggeringPolicy : 基于时间的触发策略。该策略主要是完成周期性的log文件封存工作。有两个参数：
+            interval:
+                integer型，指定两次封存动作之间的时间间隔。filePattern日期格式精确到哪一位，interval也精确到哪一个单位。
+                注意filePattern中配置的文件重命名规则是%d{yyyy-MM-dd HH-mm-ss}-%i，最小的时间粒度是ss，即秒钟。
+                TimeBasedTriggeringPolicy默认的size是1。
+            modulate:
+                boolean型，说明是否对封存时间进行调制。若modulate=true， 则封存时间将以0点为边界进行偏移计算。
+                比如，modulate=true，interval=4hours， 那么假设上次封存日志的时间为03:00，则下次封存日志的时间为04:00， 之后的封存时间依次为08:00，12:00，16:00.-->
+        <!--SizeBasedTriggeringPolicy : 基于日志文件大小的触发策略。单位有：KB，MB，GB-->
+        <!--DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了10-->
+
+        <RollingFile name="dailyRollingFileInfo"
+                     fileName="${logFilePath}/info.log"
+                     filePattern="${logFilePath}/info-%d{yyyy-MM-dd}.log">
+                     <!--filePattern="${logFilePath}/${date:yyyy-MM}/info-%d{yyyy-MM-dd}.log">-->
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="[%d{HH:mm:ss.SSS}] [%-5level] - %C.%M(%L) - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+    </appenders>
+
+    <loggers>
+        <!--过滤掉spring和mybatis的一些无用的DEBUG信息-->
+        <!--Logger节点用来单独指定日志的形式，name为包路径,比如要为org.springframework包下所有日志指定为INFO级别等。 -->
+        <logger name="org.springframework" level="INFO"/>
+        <logger name="org.mybatis" level="INFO"/>
+        <!--Root节点用来指定项目的根日志，如果没有单独指定Logger，那么就会默认使用该Root日志输出 -->
+        <root level="debug">
+            <appender-ref ref="console"/>
+            <appender-ref ref="dailyLogFile"/>
+            <appender-ref ref="rollingLogFileDebug"/>
+            <appender-ref ref="dailyRollingFileInfo"/>
+        </root>
+        <!--AsyncLogger :异步日志,LOG4J有三种日志模式,全异步日志,混合模式,同步日志,性能从高到底,线程越多效率越高,也可以避免日志卡死线程情况发生-->
+        <!--additivity="false" : additivity设置事件是否在root logger输出，为了避免重复输出，可以在Logger 标签下设置additivity为"false"-->
+        <!--此时需要引入com.lmax.disruptor-->
+        <!--<AsyncLogger name="AsyncLogger" level="trace" includeLocation="true" additivity="false">
+            <appender-ref ref="rollingFileInfo"/>
+        </AsyncLogger>-->
+    </loggers>
+
+</configuration>
