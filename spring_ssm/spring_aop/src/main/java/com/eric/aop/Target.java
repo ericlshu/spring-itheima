@@ -16,7 +16,8 @@ public class Target implements TargetInterface {
     @Override
     public String save()
     {
-        LOGGER.debug("save ...");
+        LOGGER.error("save ...");
+        // int i = 1 / 0;
         return "save";
     }
 }

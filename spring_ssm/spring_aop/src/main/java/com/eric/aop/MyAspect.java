@@ -2,6 +2,7 @@ package com.eric.aop;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.aspectj.lang.ProceedingJoinPoint;
 
 /**
  * Description :
@@ -22,4 +23,28 @@ public class MyAspect {
     {
         LOGGER.debug("after ...");
     }
+
+    /**
+     * 环绕通知
+     *
+     * @param joinPoint 正在执行的连接点 即切点对象
+     */
+    public Object around(ProceedingJoinPoint joinPoint) throws Throwable
+    {
+        LOGGER.debug("before around ...");
+        Object proceed = joinPoint.proceed();
+        LOGGER.debug("after around ...");
+        return proceed;
+    }
+
+    public void afterThrowing()
+    {
+        LOGGER.debug("after throwing ...");
+    }
+
+    public void afterReturning()
+    {
+        LOGGER.debug("after returning ...");
+    }
+
 }
