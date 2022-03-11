@@ -8,7 +8,6 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.MethodInterceptor;
-import org.springframework.cglib.proxy.MethodProxy;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -72,15 +71,11 @@ public class ProxyTest {
         enhancer.setSuperclass(Target.class);
 
         // 3.设置回调
-        enhancer.setCallback(new MethodInterceptor() {
-            @Override
-            public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable
-            {
-                advice.before();
-                Object invoke = method.invoke(target, objects);
-                advice.after();
-                return invoke;
-            }
+        enhancer.setCallback((MethodInterceptor) (o, method, objects, methodProxy) -> {
+            advice.before();
+            Object invoke = method.invoke(target, objects);
+            advice.after();
+            return invoke;
         });
 
         // 4.创建代理对象
