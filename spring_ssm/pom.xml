@@ -16,6 +16,7 @@
         <module>spring_test</module>
         <module>spring_interceptor</module>
         <module>spring_exception</module>
+        <module>spring_aop</module>
     </modules>
 
     <properties>
@@ -25,7 +26,7 @@
         <junit.version>4.13.2</junit.version>
         <c3p0.version>0.9.1.2</c3p0.version>
         <druid.version>1.2.8</druid.version>
-        <mysql.version>8.0.26</mysql.version>
+        <mysql.version>8.0.28</mysql.version>
         <servlet.version>4.0.1</servlet.version>
         <jsp.version>2.3.3</jsp.version>
         <jackson.version>2.13.2</jackson.version>
