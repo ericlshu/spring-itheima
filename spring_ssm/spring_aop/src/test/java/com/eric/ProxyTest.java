@@ -6,6 +6,9 @@ import com.eric.proxy.jdk.TargetInterface;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
+import org.springframework.cglib.proxy.Enhancer;
+import org.springframework.cglib.proxy.MethodInterceptor;
+import org.springframework.cglib.proxy.MethodProxy;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -54,5 +57,34 @@ public class ProxyTest {
         // 调用代理对象的方法
         String save = proxy.save();
         LOGGER.debug(save);
+    }
+
+    @Test
+    public void testCglib()
+    {
+        Target target = new Target(); // 目标对象
+        Advice advice = new Advice(); // 增强对象
+
+        // 1.创建增强器
+        Enhancer enhancer = new Enhancer();
+
+        // 2.设置父类（目标）
+        enhancer.setSuperclass(Target.class);
+
+        // 3.设置回调
+        enhancer.setCallback(new MethodInterceptor() {
+            @Override
+            public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable
+            {
+                advice.before();
+                Object invoke = method.invoke(target, objects);
+                advice.after();
+                return invoke;
+            }
+        });
+
+        // 4.创建代理对象
+        Target proxy = (Target) enhancer.create();
+        proxy.save();
     }
 }
