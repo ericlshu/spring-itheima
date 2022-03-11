@@ -1,6 +1,9 @@
 package com.eric.dao;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import javax.annotation.Resource;
 
 /**
  * Description :
@@ -8,13 +11,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * @author Eric L SHU
  * @date 2022-03-11 20:09
  */
+@Repository("accountDao")
 public class AccountDao {
-    private JdbcTemplate jdbcTemplate;
 
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate)
-    {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+    @Resource(name = "jdbcTemplate")
+    private JdbcTemplate jdbcTemplate;
 
     public void out(String outMan, double money)
     {
