@@ -32,16 +32,24 @@ public class UserTest {
     {
         InputStream resourceAsStream = Resources.getResourceAsStream("sqlMapConfig.xml");
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
-        sqlSession = sqlSessionFactory.openSession();
+
+        // 会默认开启一个事务，但事务不会自动提交，也就意味着需要手动提交该事务，更新操作数据才会持久化到数据库中
+        // sqlSession = sqlSessionFactory.openSession();
+
+        // 参数为是否自动提交，如果设置为true，那么不需要手动提交事务
+        sqlSession = sqlSessionFactory.openSession(true);
     }
 
     @After
     public void after()
     {
-        sqlSession.commit();
+        // sqlSession.commit();
         sqlSession.close();
     }
 
+    /**
+     * <E> List<E> selectList(String statement, Object parameter)
+     */
     @Test
     public void testFindAll()
     {
@@ -53,6 +61,9 @@ public class UserTest {
         }
     }
 
+    /**
+     * <T> T selectOne(String statement, Object parameter)
+     */
     @Test
     public void testFindById()
     {
@@ -60,6 +71,9 @@ public class UserTest {
         LOGGER.info("user = " + user);
     }
 
+    /**
+     * int insert(String statement, Object parameter)s
+     */
     @Test
     public void testSave()
     {
@@ -68,6 +82,9 @@ public class UserTest {
         LOGGER.info("insert result = " + insert);
     }
 
+    /**
+     * int update(String statement, Object parameter)
+     */
     @Test
     public void testUpdate()
     {
@@ -82,6 +99,9 @@ public class UserTest {
         LOGGER.info("after user = " + user);
     }
 
+    /**
+     * int delete(String statement, Object parameter)
+     */
     @Test
     public void testDelete()
     {
