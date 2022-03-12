@@ -1,8 +1,8 @@
 package com.eric.service;
 
+import com.eric.dao.UserDao;
+import com.eric.dao.impl.UserDaoImpl;
 import com.eric.domain.User;
-import com.eric.mapper.UserMapper;
-import com.eric.mapper.impl.UserMapperImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
@@ -21,11 +21,11 @@ public class ServiceDemo {
     public static final Logger LOGGER = LogManager.getLogger();
 
     @Test
-    public void test() throws IOException
+    public void testTraditionalDao() throws IOException
     {
 
-        UserMapper userMapper = new UserMapperImpl();
-        List<User> userList = userMapper.findAll();
+        UserDao userDao = new UserDaoImpl();
+        List<User> userList = userDao.findAll();
         for (User user : userList)
         {
             LOGGER.info("user = " + user);

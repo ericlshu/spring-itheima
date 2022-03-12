@@ -1,7 +1,7 @@
-package com.eric.mapper.impl;
+package com.eric.dao.impl;
 
+import com.eric.dao.UserDao;
 import com.eric.domain.User;
-import com.eric.mapper.UserMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -15,9 +15,9 @@ import java.util.List;
  * Description :
  *
  * @author Eric L SHU
- * @date 2022-03-12 20:23
+ * @date 2022-03-12 20:47
  */
-public class UserMapperImpl implements UserMapper {
+public class UserDaoImpl implements UserDao {
     @Override
     public List<User> findAll() throws IOException
     {
