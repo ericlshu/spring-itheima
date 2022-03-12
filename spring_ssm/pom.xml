@@ -19,6 +19,7 @@
         <module>spring_aop</module>
         <module>spring_tx</module>
         <module>mybatis_start</module>
+        <module>mybatis_dao</module>
     </modules>
 
     <properties>
