@@ -1,8 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!--映射文件DTD约束头-->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<!-- namespace     : 命名空间，与下面语句的id一起组成查询的标识 -->
+<!-- id            : 与上面的命名空间一起组成查询的标识 -->
+<!-- select        : 查询操作，可选的还有insert、update、delete -->
+<!-- resultType    : 查询结果对应的实体类型 -->
+<!-- parameterType : 语句参数的数据类型 -->
 <mapper namespace="userMapper">
+
     <select id="findAll" resultType="com.eric.domain.User">
-        select * from user
+        select *
+        from user
     </select>
+
+    <select id="findById" resultType="com.eric.domain.User" parameterType="Integer">
+        select *
+        from user
+        where id = #{id}
+    </select>
+
+    <insert id="save" parameterType="com.eric.domain.User">
+        insert into user(username, password)
+        values (#{username}, #{password})
+    </insert>
+
+    <!--Sql语句中使用#{任意字符串}方式引用传递的单个参数-->
+
+    <update id="update" parameterType="com.eric.domain.User">
+        update user
+        set username = #{username},
+            password = #{password}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Integer">
+        delete
+        from user
+        where id = #{id}
+    </delete>
+
 </mapper>
