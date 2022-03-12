@@ -31,9 +31,7 @@ public class UserTest {
     public void before() throws IOException
     {
         InputStream resourceAsStream = Resources.getResourceAsStream("sqlMapConfig.xml");
-
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(resourceAsStream);
-
         sqlSession = sqlSessionFactory.openSession();
     }
 
@@ -49,8 +47,11 @@ public class UserTest {
     {
         List<User> userList = sqlSession.selectList("userMapper.findAll");
         LOGGER.info("userList = " + userList);
+        for (User user : userList)
+        {
+            LOGGER.warn("user = " + user);
+        }
     }
-
 
     @Test
     public void testFindById()
@@ -73,7 +74,7 @@ public class UserTest {
         User user = sqlSession.selectOne("userMapper.findById", 1);
         LOGGER.info("before user = " + user);
 
-        user.setPassword("eric");
+        user.setPassword("1234");
         int update = sqlSession.update("userMapper.update", user);
         LOGGER.info("update result = " + update);
 

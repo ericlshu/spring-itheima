@@ -9,25 +9,25 @@
 <!-- parameterType : 语句参数的数据类型 -->
 <mapper namespace="userMapper">
 
-    <select id="findAll" resultType="com.eric.domain.User">
+    <select id="findAll" resultType="user">
         select *
         from user
     </select>
 
-    <select id="findById" resultType="com.eric.domain.User" parameterType="Integer">
+    <select id="findById" resultType="user" parameterType="Integer">
         select *
         from user
         where id = #{id}
     </select>
 
-    <insert id="save" parameterType="com.eric.domain.User">
+    <insert id="save" parameterType="user">
         insert into user(username, password)
         values (#{username}, #{password})
     </insert>
 
     <!--Sql语句中使用#{任意字符串}方式引用传递的单个参数-->
 
-    <update id="update" parameterType="com.eric.domain.User">
+    <update id="update" parameterType="user">
         update user
         set username = #{username},
             password = #{password}
