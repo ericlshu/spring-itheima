@@ -2,6 +2,7 @@ package com.eric.mapper;
 
 import com.eric.domain.User;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -13,16 +14,8 @@ import java.util.List;
 public interface UserMapper {
     /**
      * find all user
-     *
      * @return user list
+     * @throws IOException IOException
      */
-    List<User> findAll();
-
-    /**
-     * find user by id
-     *
-     * @param id id
-     * @return user
-     */
-    User findById(int id);
+    List<User> findAll() throws IOException;
 }
