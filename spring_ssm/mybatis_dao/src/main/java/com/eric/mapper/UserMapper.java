@@ -14,8 +14,16 @@ import java.util.List;
 public interface UserMapper {
     /**
      * find all user
+     *
      * @return user list
-     * @throws IOException IOException
      */
-    List<User> findAll() throws IOException;
+    List<User> findAll();
+
+    /**
+     * find user by id
+     *
+     * @param id id
+     * @return user
+     */
+    User findById(int id);
 }
