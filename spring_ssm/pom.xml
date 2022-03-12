@@ -20,6 +20,7 @@
         <module>spring_tx</module>
         <module>mybatis_start</module>
         <module>mybatis_dao</module>
+        <module>mybatis_mapper</module>
     </modules>
 
     <properties>
