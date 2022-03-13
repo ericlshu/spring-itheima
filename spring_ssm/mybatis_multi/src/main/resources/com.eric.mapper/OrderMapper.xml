@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eric.mapper.OrderMapper">
+
+    <resultMap id="orderMap" type="order">
+        <id column="oid" property="id"/>
+        <result column="order_time" property="orderTime" typeHandler="org.apache.ibatis.type.DateTypeHandler"/>
+        <result column="total" property="total"/>
+        <result column="uid" property="user.id"/>
+        <result column="username" property="user.username"/>
+        <result column="password" property="user.password"/>
+        <result column="birthday" property="user.birthday" typeHandler="com.eric.handler.DateTypeHandler"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="orderMap">
+        select *, o.id as oid, o.order_time as orderTime
+        from `order` o,
+             user u
+        where o.uid = u.id
+    </select>
+</mapper>
