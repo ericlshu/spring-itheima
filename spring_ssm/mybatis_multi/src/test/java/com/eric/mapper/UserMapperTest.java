@@ -1,5 +1,7 @@
 package com.eric.mapper;
 
+import com.eric.domain.Order;
+import com.eric.domain.Role;
 import com.eric.domain.User;
 import com.github.pagehelper.PageHelper;
 import org.apache.ibatis.io.Resources;
@@ -46,11 +48,22 @@ public class UserMapperTest {
     @Test
     public void findAll()
     {
-        PageHelper.startPage(1, 5);
+        // PageHelper.startPage(1, 5);
         List<User> users = userMapper.findAll();
         for (User user : users)
         {
-            LOGGER.info("users[" + user.getId() + "] : " + user);
+            LOGGER.warn("users[" + user.getId() + "] : " + user);
+            LOGGER.info("--------------------------------------------------------------------------------------------");
+            for (Order order : user.getOrderList())
+            {
+                LOGGER.info("|----orders[" + order.getId() + "] : " + order);
+            }
+            LOGGER.info("--------------------------------------------------------------------------------------------");
+            for (Role role : user.getRoleList())
+            {
+                LOGGER.debug("|----roles[" + role.getId() + "] : " + role);
+            }
+            LOGGER.info("============================================================================================");
         }
     }
 }

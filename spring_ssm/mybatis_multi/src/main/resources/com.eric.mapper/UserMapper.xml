@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.eric.mapper.UserMapper">
-
+    <!--
     <resultMap id="userMap" type="user">
         <id column="uid" property="id"/>
         <result column="username" property="username"/>
@@ -17,5 +17,40 @@
     </resultMap>
     <select id="findAll" resultMap="userMap">
         select *, o.id as oid from user u, `order` o where u.id = o.uid
+    </select>
+    -->
+    <resultMap id="userMap" type="user">
+        <id column="uid" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="birthday" property="birthday" typeHandler="com.eric.handler.DateTypeHandler"/>
+        <collection property="orderList" ofType="order">
+            <id column="oid" property="id"/>
+            <result column="total" property="total"/>
+            <result column="orderTime" property="orderTime"/>
+            <result column="uid" property="user.id"/>
+        </collection>
+        <collection property="roleList" ofType="role">
+            <id column="rid" property="id"/>
+            <result column="roleName" property="roleName"/>
+            <result column="roleDesc" property="roleDesc"/>
+        </collection>
+    </resultMap>
+    <select id="findAll" resultMap="userMap">
+        select u.id         as uid,
+               u.username,
+               u.password,
+               u.birthday,
+               o.id         as oid,
+               o.order_time as orderTime,
+               o.total,
+               r.id         as rid,
+               r.roleName,
+               r.roleDesc
+        from user u
+                 join `order` o on u.id = o.uid
+                 join user_role ur on ur.userId = u.id
+                 join role r on r.id = ur.roleId
+        order by uid, oid, rid
     </select>
 </mapper>

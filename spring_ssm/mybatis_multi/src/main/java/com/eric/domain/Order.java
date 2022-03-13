@@ -61,7 +61,6 @@ public class Order {
                 "id=" + id +
                 ", orderTime=" + orderTime +
                 ", total=" + total +
-                // ", user=" + user +
                 '}';
     }
 }

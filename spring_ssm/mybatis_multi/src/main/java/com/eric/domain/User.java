@@ -16,16 +16,7 @@ public class User {
     private String password;
     private Date birthday;
     private List<Order> orderList;
-
-    public List<Order> getOrderList()
-    {
-        return orderList;
-    }
-
-    public void setOrderList(List<Order> orderList)
-    {
-        this.orderList = orderList;
-    }
+    private List<Role> roleList;
 
     public Date getBirthday()
     {
@@ -67,6 +58,26 @@ public class User {
         this.password = password;
     }
 
+    public List<Order> getOrderList()
+    {
+        return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList)
+    {
+        this.orderList = orderList;
+    }
+
+    public List<Role> getRoleList()
+    {
+        return roleList;
+    }
+
+    public void setRoleList(List<Role> roleList)
+    {
+        this.roleList = roleList;
+    }
+
     @Override
     public String toString()
     {
@@ -75,7 +86,6 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", birthday=" + birthday +
-                ", orderList=" + orderList +
                 '}';
     }
 }
