@@ -11,6 +11,20 @@
         <typeHandler handler="com.eric.handler.DateTypeHandler"/>
     </typeHandlers>
 
+    <!--
+        PageHelper 4.0.0 以后的版本不再实现com.github.pagehelper.PageHelper接口，转而实现接口org.apache.ibatis.plugin.Interceptor;
+        Pagehelper 4.0.0 以后的版本可以自动识别数据库了，不需要再手动指定数据库方言;
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageHelper">
+            &lt;!&ndash;指定方言 适配不同数据库的不同语法&ndash;&gt;
+            <property name="dialect" value="mysql"/>
+        </plugin>
+    </plugins>-->
+
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"/>
+    </plugins>
+
     <environments default="dev">
         <environment id="dev">
             <transactionManager type="JDBC"/>

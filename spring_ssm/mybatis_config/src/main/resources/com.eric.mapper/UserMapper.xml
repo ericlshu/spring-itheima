@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.eric.mapper.UserMapper">
-    <sql id="oneUser">
+    <sql id="user">
         select *
         from user
     </sql>
@@ -11,11 +11,14 @@
         values (#{id}, #{username}, #{password}, #{birthday})
     </insert>
     <select id="findById" parameterType="int" resultType="user">
-        <include refid="oneUser"/>
+        <include refid="user"/>
         <where>
             <if test="id != 0">
                 id = #{id}
             </if>
         </where>
+    </select>
+    <select id="findAll" resultType="user">
+        <include refid="user"/>
     </select>
 </mapper>
