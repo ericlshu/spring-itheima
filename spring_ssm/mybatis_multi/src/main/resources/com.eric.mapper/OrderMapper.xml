@@ -5,12 +5,25 @@
 
     <resultMap id="orderMap" type="order">
         <id column="oid" property="id"/>
-        <result column="order_time" property="orderTime" typeHandler="org.apache.ibatis.type.DateTypeHandler"/>
+        <result column="order_time" property="orderTime"/>
         <result column="total" property="total"/>
+
+        <!--
         <result column="uid" property="user.id"/>
         <result column="username" property="user.username"/>
         <result column="password" property="user.password"/>
         <result column="birthday" property="user.birthday" typeHandler="com.eric.handler.DateTypeHandler"/>
+        -->
+        <!--
+            property: 当前实体(order)中的属性名称(private User user)
+            javaType: 当前实体(order)中的属性的类型(com.eric.domain.User)
+        -->
+        <association property="user" javaType="user">
+            <id column="uid" property="id"/>
+            <result column="username" property="username"/>
+            <result column="password" property="password"/>
+            <result column="birthday" property="birthday" typeHandler="com.eric.handler.DateTypeHandler"/>
+        </association>
     </resultMap>
 
     <select id="findAll" resultMap="orderMap">
