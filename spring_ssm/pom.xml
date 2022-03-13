@@ -21,6 +21,8 @@
         <module>mybatis_start</module>
         <module>mybatis_dao</module>
         <module>mybatis_mapper</module>
+        <module>mybatis_anno</module>
+        <module>mybatis_config</module>
     </modules>
 
     <properties>

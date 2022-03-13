@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eric.mapper.UserMapper">
+    <sql id="oneUser">
+        select *
+        from user
+    </sql>
+    <insert id="save" parameterType="user">
+        insert into user
+        values (#{id}, #{username}, #{password}, #{birthday})
+    </insert>
+    <select id="findById" parameterType="int" resultType="user">
+        <include refid="oneUser"/>
+        <where>
+            <if test="id != 0">
+                id = #{id}
+            </if>
+        </where>
+    </select>
+</mapper>
