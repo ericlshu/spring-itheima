@@ -1,6 +1,7 @@
 package com.eric.domain;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Description :
@@ -14,6 +15,17 @@ public class User {
     private String username;
     private String password;
     private Date birthday;
+    private List<Order> orderList;
+
+    public List<Order> getOrderList()
+    {
+        return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList)
+    {
+        this.orderList = orderList;
+    }
 
     public Date getBirthday()
     {
@@ -63,6 +75,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", birthday=" + birthday +
+                ", orderList=" + orderList +
                 '}';
     }
 }

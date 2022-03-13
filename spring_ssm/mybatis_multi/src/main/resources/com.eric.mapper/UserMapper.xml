@@ -3,4 +3,19 @@
 
 <mapper namespace="com.eric.mapper.UserMapper">
 
+    <resultMap id="userMap" type="user">
+        <id column="uid" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="birthday" property="birthday" typeHandler="com.eric.handler.DateTypeHandler"/>
+        <collection property="orderList" ofType="order">
+            <id column="oid" property="id"/>
+            <result column="total" property="total"/>
+            <result column="order_time" property="orderTime"/>
+            <result column="uid" property="user.id"/>
+        </collection>
+    </resultMap>
+    <select id="findAll" resultMap="userMap">
+        select *, o.id as oid from user u, `order` o where u.id = o.uid
+    </select>
 </mapper>
