@@ -56,4 +56,17 @@ public class OrderMapperTest {
             LOGGER.warn("----------------------------------------------------------------------------------");
         }
     }
+
+
+    @Test
+    public void findOrdersByUid()
+    {
+        // PageHelper.startPage(1,10);
+        List<Order> orderList = orderMapper.findOrdersByUserId(2);
+        for (Order order : orderList)
+        {
+            LOGGER.info("orders[" + order.getId() + "] : " + order);
+            LOGGER.warn("----------------------------------------------------------------------------------");
+        }
+    }
 }

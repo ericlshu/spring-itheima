@@ -59,4 +59,18 @@ public interface OrderMapper {
             )
     })
     List<Order> findAllOrderWithUser2();
+
+    /**
+     * find orders by user id
+     *
+     * @param uid user id
+     * @return order list
+     */
+    @Select("select * from `order` o where o.uid = #{uid}")
+    @Results({
+            // @Result(id = true, column = "id", property = "id"),
+            // @Result(column = "total", property = "total"),
+            @Result(column = "order_time", property = "orderTime")
+    })
+    List<Order> findOrdersByUserId(int uid);
 }

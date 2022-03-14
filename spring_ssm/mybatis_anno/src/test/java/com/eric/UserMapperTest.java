@@ -1,5 +1,6 @@
 package com.eric;
 
+import com.eric.domain.Order;
 import com.eric.domain.User;
 import com.eric.mapper.UserMapper;
 import org.apache.ibatis.io.Resources;
@@ -84,6 +85,22 @@ public class UserMapperTest {
         for (User user : all)
         {
             LOGGER.info(user);
+        }
+    }
+
+    @Test
+    public void testFindUserAndOrders()
+    {
+        List<User> all = userMapper.findUserAndOrders();
+        for (User user : all)
+        {
+            LOGGER.info(user);
+            List<Order> orderList = user.getOrderList();
+            for (Order order : orderList)
+            {
+                LOGGER.warn(order);
+            }
+            LOGGER.info("----------------------------------------------------------------------------------");
         }
     }
 }
