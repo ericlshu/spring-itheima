@@ -9,9 +9,11 @@
         <typeAlias type="com.eric.domain.Role" alias="role"/>
     </typeAliases>
 
+    <!--
     <typeHandlers>
         <typeHandler handler="com.eric.handler.DateTypeHandler"/>
     </typeHandlers>
+    -->
 
     <plugins>
         <plugin interceptor="com.github.pagehelper.PageInterceptor"/>
