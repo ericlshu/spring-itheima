@@ -24,6 +24,7 @@
         <module>mybatis_anno</module>
         <module>mybatis_config</module>
         <module>mybatis_multi</module>
+        <module>ssm_integration</module>
     </modules>
 
     <properties>
@@ -48,6 +49,7 @@
         <mybatis.version>3.5.9</mybatis.version>
         <pagehelper.version>5.3.0</pagehelper.version>
         <jsqlparser.version>4.3</jsqlparser.version>
+        <mybatis-spring>2.0.7</mybatis-spring>
     </properties>
 
     <dependencyManagement>
@@ -188,7 +190,11 @@
                 <artifactId>jsqlparser</artifactId>
                 <version>${jsqlparser.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>2.0.7</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
