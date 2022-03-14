@@ -1,6 +1,7 @@
 package com.eric;
 
 import com.eric.domain.Order;
+import com.eric.domain.Role;
 import com.eric.domain.User;
 import com.eric.mapper.UserMapper;
 import org.apache.ibatis.io.Resources;
@@ -101,6 +102,26 @@ public class UserMapperTest {
                 LOGGER.warn(order);
             }
             LOGGER.info("----------------------------------------------------------------------------------");
+        }
+    }
+
+    @Test
+    public void testFindUsers(){
+        List<User> userList = userMapper.findAllUserWithRolesAndOrders();
+        for (User user : userList)
+        {
+            LOGGER.debug(user);
+            LOGGER.debug("----------------------------------------------------------------------------------");
+            for (Role role : user.getRoleList())
+            {
+                LOGGER.info(role);
+            }
+            LOGGER.debug("----------------------------------------------------------------------------------");
+            for (Order order : user.getOrderList())
+            {
+                LOGGER.warn(order);
+            }
+            LOGGER.debug("=================================================================================");
         }
     }
 }

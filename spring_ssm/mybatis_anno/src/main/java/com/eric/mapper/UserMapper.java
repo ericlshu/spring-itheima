@@ -20,7 +20,7 @@ public interface UserMapper {
      * @param user user
      */
     @Results(value = {
-            @Result(id=true,column = "id", property = "id"),
+            @Result(id = true, column = "id", property = "id"),
             @Result(column = "username", property = "username"),
             @Result(column = "password", property = "password"),
             @Result(column = "birthday", property = "birthday", typeHandler = DateTypeHandler.class)
@@ -53,7 +53,7 @@ public interface UserMapper {
      */
     @Select("select * from user where id=#{id}")
     @Results(value = {
-            @Result(id=true,column = "id", property = "id"),
+            @Result(id = true, column = "id", property = "id"),
             // @Result(column = "username", property = "username"),
             // @Result(column = "password", property = "password"),
             @Result(column = "birthday", property = "birthday", typeHandler = DateTypeHandler.class)
@@ -72,16 +72,16 @@ public interface UserMapper {
     List<User> findAll();
 
     /**
-     * find all users with orders list
+     * find all users with order list
      *
-     * @return users with orders list
+     * @return users with order list
      */
     @Select("select * from user")
     @Results({
             @Result(id = true, column = "id", property = "id"),
-            @Result(column = "username" ,property = "username"),
-            @Result(column = "password" ,property = "password"),
-            @Result(column = "birthday" ,property = "birthday", typeHandler = DateTypeHandler.class),
+            @Result(column = "username", property = "username"),
+            @Result(column = "password", property = "password"),
+            @Result(column = "birthday", property = "birthday", typeHandler = DateTypeHandler.class),
             @Result(
                     column = "id",
                     property = "orderList",
@@ -89,4 +89,29 @@ public interface UserMapper {
             )
     })
     List<User> findUserAndOrders();
+
+    /**
+     * find all users with order and role list
+     *
+     * @return users with order and role list
+     */
+    @Select("select * from user")
+    @Results({
+
+            @Result(id = true, column = "id", property = "id"),
+            @Result(column = "username", property = "username"),
+            @Result(column = "password", property = "password"),
+            @Result(column = "birthday", property = "birthday", typeHandler = DateTypeHandler.class),
+            @Result(
+                    column = "id",
+                    property = "orderList",
+                    many = @Many(select = "com.eric.mapper.OrderMapper.findOrdersByUserId")
+            ),
+            @Result(
+                    column = "id",
+                    property = "roleList",
+                    many = @Many(select = "com.eric.mapper.RoleMapper.findRolesByUserId")
+            )
+    })
+    List<User> findAllUserWithRolesAndOrders();
 }
