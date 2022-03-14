@@ -1,5 +1,7 @@
 package com.eric.mapper;
 
+import com.eric.domain.Order;
+import com.eric.domain.Role;
 import com.eric.domain.User;
 import com.eric.handler.DateTypeHandler;
 import org.apache.ibatis.annotations.*;
@@ -105,11 +107,13 @@ public interface UserMapper {
             @Result(
                     column = "id",
                     property = "orderList",
+                    javaType = Order.class,
                     many = @Many(select = "com.eric.mapper.OrderMapper.findOrdersByUserId")
             ),
             @Result(
                     column = "id",
                     property = "roleList",
+                    javaType = Role.class,
                     many = @Many(select = "com.eric.mapper.RoleMapper.findRolesByUserId")
             )
     })
