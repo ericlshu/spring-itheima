@@ -3,12 +3,14 @@
 
 <configuration>
 
-    <properties resource="jdbc.properties"/>
-
     <typeAliases>
         <!--<typeAlias type="com.eric.domain.Account" alias="account"/>-->
         <package name="com.eric.domain"/>
     </typeAliases>
+
+    <!-- transfer into spring config during integration
+
+    <properties resource="jdbc.properties"/>
 
     <environments default="development">
         <environment id="development">
@@ -25,5 +27,7 @@
     <mappers>
         <package name="com.eric.mapper"/>
     </mappers>
+
+    -->
 
 </configuration>

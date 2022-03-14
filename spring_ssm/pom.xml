@@ -33,6 +33,7 @@
         <spring.version>5.3.16</spring.version>
         <junit.version>4.13.2</junit.version>
         <c3p0.version>0.9.1.2</c3p0.version>
+        <mchange.version>0.9.5.5</mchange.version>
         <druid.version>1.2.8</druid.version>
         <mysql.version>8.0.28</mysql.version>
         <servlet.version>4.0.1</servlet.version>
@@ -94,6 +95,11 @@
                 <groupId>c3p0</groupId>
                 <artifactId>c3p0</artifactId>
                 <version>${c3p0.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mchange</groupId>
+                <artifactId>c3p0</artifactId>
+                <version>${mchange.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.alibaba</groupId>
