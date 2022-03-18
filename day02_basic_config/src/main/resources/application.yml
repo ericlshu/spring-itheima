@@ -1,0 +1,19 @@
+lesson: SpringBoot
+
+server:
+  port: 82
+
+enterprise:
+  name: eric
+  age: 16
+  tel: 18888888888
+  subject:
+    - Java
+    - 前端
+    - 大数据
+
+datasource:
+  driver: com.mysql.cj.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/test?serverTimezone=UTC
+  username: eric
+  password: 1234
