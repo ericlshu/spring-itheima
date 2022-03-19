@@ -1,5 +1,6 @@
 package com.eric.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eric.domain.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -13,7 +14,7 @@ import java.util.List;
  * @date 2022-03-19 20:30
  */
 @Mapper
-public interface UserMapper {
+public interface UserMapper extends BaseMapper<User> {
     /**
      * get user by id
      *

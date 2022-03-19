@@ -4,14 +4,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * @author Eric SHU
+ * @author Eric L SHU
  */
 @SpringBootApplication
-public class MySpringBootApplication {
+public class Day03IntegrationApplication {
 
     public static void main(String[] args)
     {
-        SpringApplication.run(MySpringBootApplication.class, args);
+        SpringApplication.run(Day03IntegrationApplication.class, args);
     }
 
 }

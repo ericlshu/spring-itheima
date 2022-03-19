@@ -1,11 +1,8 @@
-package com;
-
-import com.eric.MySpringBootApplication;
+import com.eric.Day03IntegrationApplication;
 import com.eric.dao.BookDao;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 
 /**
  * Description :
@@ -15,8 +12,8 @@ import org.springframework.test.context.ContextConfiguration;
  * @ ContextConfiguration(classes = MySpringBootApplication.class)
  * @date 2022-03-19 19:52
  */
-@SpringBootTest(classes = MySpringBootApplication.class)
-public class MySpringBootApplicationTest1 {
+@SpringBootTest(classes = Day03IntegrationApplication.class)
+public class SpringBootExternalTest {
 
     @Autowired
     private BookDao bookDao;

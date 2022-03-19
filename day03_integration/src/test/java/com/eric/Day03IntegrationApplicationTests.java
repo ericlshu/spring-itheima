@@ -9,14 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-/**
- * Description :
- *
- * @author Eric L SHU
- * @date 2022-03-19 19:52
- */
 @SpringBootTest
-public class MySpringBootApplicationTest {
+class Day03IntegrationApplicationTests {
 
     @Autowired
     private BookDao bookDao;
@@ -38,7 +32,6 @@ public class MySpringBootApplicationTest {
         System.out.println("user = " + user);
     }
 
-
     @Test
     void testFindAll()
     {
@@ -49,5 +42,14 @@ public class MySpringBootApplicationTest {
         }
     }
 
-}
+    @Test
+    void testSelectById()
+    {
+        List<User> userList = userMapper.selectList(null);
+        for (User user : userList)
+        {
+            System.out.println("user = " + user);
+        }
+    }
 
+}
