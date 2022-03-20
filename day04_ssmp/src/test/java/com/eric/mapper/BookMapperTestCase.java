@@ -1,5 +1,7 @@
 package com.eric.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eric.domain.Book;
@@ -63,12 +65,25 @@ public class BookMapperTestCase {
     @Test
     void testSelectByPage()
     {
-        IPage<Book> page = new Page<>(2,5);
+        IPage<Book> page = new Page<>(2, 5);
         IPage<Book> books = bookMapper.selectPage(page, null);
         List<Book> records = books.getRecords();
         for (Book bk : records)
         {
             log.info("book : " + bk);
+        }
+    }
+
+    @Test
+    void testQuery()
+    {
+        String type = "小说";
+        LambdaQueryWrapper<Book> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.like(type != null, (Book::getType), type);
+        List<Book> books = bookMapper.selectList(lambdaQueryWrapper);
+        for (Book book : books)
+        {
+            log.debug("book : " + book);
         }
     }
 }
