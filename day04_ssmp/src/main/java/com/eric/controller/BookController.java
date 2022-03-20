@@ -14,7 +14,7 @@ import java.util.List;
  * @author Eric L SHU
  * @date 2022-03-20 18:43
  */
-@RestController
+// @RestController
 @RequestMapping("/books")
 public class BookController {
 
