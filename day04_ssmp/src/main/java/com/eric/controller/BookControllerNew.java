@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 /**
  * Description :
  *
@@ -35,8 +37,11 @@ public class BookControllerNew {
     }
 
     @PutMapping
-    public Result update(@RequestBody Book book)
+    public Result update(@RequestBody Book book) throws IOException
     {
+        if("123".equals(book.getName())){
+            throw  new IOException();
+        }
         log.debug("book = " + book);
         return new Result(bookService.updateById(book));
     }
