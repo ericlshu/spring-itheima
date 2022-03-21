@@ -1,5 +1,6 @@
 package com.eric.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.eric.controller.utils.Result;
 import com.eric.domain.Book;
 import com.eric.service.IBookService;
@@ -39,8 +40,9 @@ public class BookControllerNew {
     @PutMapping
     public Result update(@RequestBody Book book) throws IOException
     {
-        if("123".equals(book.getName())){
-            throw  new IOException();
+        if ("123".equals(book.getName()))
+        {
+            throw new IOException();
         }
         log.debug("book = " + book);
         return new Result(bookService.updateById(book));
@@ -65,7 +67,11 @@ public class BookControllerNew {
     {
         log.debug("current = " + current);
         log.debug("size    = " + size);
-        return new Result(true, bookService.getPage(current, size));
+        IPage<Book> page = bookService.getPage(current, size);
+        // 如果当前页码值大于总页码值，重新执行查询，使用最大页码值作为当前页码值
+        if (current > page.getPages())
+            page = bookService.getPage((int) page.getPages(), size);
+        return new Result(true, page);
     }
 
 }
