@@ -62,7 +62,7 @@ public class BookControllerNew {
         return new Result(true, bookService.getById(id));
     }
 
-    @GetMapping("{current}/{size}")
+    // @GetMapping("{current}/{size}")
     public Result getPage(@PathVariable int current, @PathVariable int size)
     {
         log.debug("current = " + current);
@@ -71,6 +71,20 @@ public class BookControllerNew {
         // 如果当前页码值大于总页码值，重新执行查询，使用最大页码值作为当前页码值
         if (current > page.getPages())
             page = bookService.getPage((int) page.getPages(), size);
+        return new Result(true, page);
+    }
+
+    @GetMapping("{current}/{size}")
+    public Result getPage(@PathVariable int current, @PathVariable int size, Book book)
+    {
+        System.out.println("current = " + current);
+        System.out.println("size    = " + size);
+        System.out.println("book = " + book);
+
+        IPage<Book> page = bookService.getPage(current, size, book);
+        // 如果当前页码值大于总页码值，重新执行查询，使用最大页码值作为当前页码值
+        if (current > page.getPages())
+            page = bookService.getPage((int) page.getPages(), size, book);
         return new Result(true, page);
     }
 

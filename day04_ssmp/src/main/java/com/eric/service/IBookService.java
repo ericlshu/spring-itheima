@@ -20,4 +20,14 @@ public interface IBookService extends IService<Book> {
      * @return book list
      */
     IPage<Book> getPage(int current, int size);
+
+    /**
+     * get book list by page with condition
+     *
+     * @param current current page
+     * @param size    page size
+     * @param book    query condition
+     * @return book list
+     */
+    IPage<Book> getPage(int current, int size, Book book);
 }
