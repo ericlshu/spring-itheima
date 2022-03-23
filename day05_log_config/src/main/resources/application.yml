@@ -11,8 +11,10 @@ logging:
   level:
     root: info
     # 设置单个包的日志级别
-#    com.eric.controller: debug
-
+    # com.eric.controller: debug
     # 设置分组，对某个组设置日志级别
-    eric: warn
+    eric: info
+  pattern:
+    # console: "%d{yyyy-MM-dd HH:mm:ss} [%10.10t:%4.4r] - [%-5p] %c - %m%n"
+    console: "%d{DEFAULT}] %clr([%-5p]) - %c -->> %msg%n"
 
