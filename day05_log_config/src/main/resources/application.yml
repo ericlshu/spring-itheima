@@ -17,4 +17,10 @@ logging:
   pattern:
     # console: "%d{yyyy-MM-dd HH:mm:ss} [%10.10t:%4.4r] - [%-5p] %c - %m%n"
     console: "%d{DEFAULT}] %clr([%-5p]) - %c -->> %msg%n"
+  file:
+    name: server.log
+  logback:
+    rollingpolicy:
+      max-file-size: 3KB
+      file-name-pattern: server.%d{yyyy-MM-dd}.%i.log
 
