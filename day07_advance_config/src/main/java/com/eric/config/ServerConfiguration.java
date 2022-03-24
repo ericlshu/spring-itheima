@@ -2,15 +2,15 @@ package com.eric.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
 /**
  * Description :
  *
  * @author Eric L SHU
+ * @ EnableConfigurationProperties与@ Component不能同时使用
  * @date 2022-03-24 11:53
  */
-@Component
+// @Component
 @Data
 @ConfigurationProperties(prefix = "servers")
 public class ServerConfiguration {

@@ -1,4 +1,13 @@
 servers:
-  ipAddress: 192.168.0.1
+  # @ConfigurationProperties绑定属性支持属性名宽松绑定
+  ipAddress: 192.168.0.1   # 驼峰模式
+#  ipaddress: 192.168.0.1
+#  ip_address: 192.168.0.1  # 下划线模式
+#  ip-address: 192.168.0.2  # 中划线模式 推荐模式
+#  IPADDRESS: 192.168.0.1
+#  IP_ADDRESS: 192.168.0.1  # 常量模式
   port: 2345
   timeout: -1
+
+datasource:
+  driver-class-name: com.mysql.jdbc.Driver
