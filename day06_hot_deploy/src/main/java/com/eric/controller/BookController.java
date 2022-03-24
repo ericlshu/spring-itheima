@@ -33,7 +33,7 @@ public class BookController {
     @PostMapping
     public Result save(@RequestBody Book book)
     {
-        log.debug("book = " + book);
+        log.info("book = " + book);
         return new Result(bookService.save(book));
     }
 
@@ -44,30 +44,30 @@ public class BookController {
         {
             throw new IOException();
         }
-        log.debug("book = " + book);
+        log.info("book = " + book);
         return new Result(bookService.updateById(book));
     }
 
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id)
     {
-        log.debug("id = " + id);
+        log.info("id = " + id);
         return new Result(bookService.removeById(id));
     }
 
     @GetMapping("/{id}")
     public Result getById(@PathVariable Integer id)
     {
-        log.debug("id = " + id);
-        log.debug("terst" + id);
+        log.info("id = " + id);
+        log.info("test hot deploy ...");
         return new Result(true, bookService.getById(id));
     }
 
     // @GetMapping("{current}/{size}")
     public Result getPage(@PathVariable int current, @PathVariable int size)
     {
-        log.debug("current = " + current);
-        log.debug("size    = " + size);
+        log.info("current = " + current);
+        log.info("size    = " + size);
         IPage<Book> page = bookService.getPage(current, size);
         // 如果当前页码值大于总页码值，重新执行查询，使用最大页码值作为当前页码值
         if (current > page.getPages())
@@ -78,9 +78,9 @@ public class BookController {
     @GetMapping("{current}/{size}")
     public Result getPage(@PathVariable int current, @PathVariable int size, Book book)
     {
-        System.out.println("current = " + current);
-        System.out.println("size    = " + size);
-        System.out.println("book = " + book);
+        log.info("current = " + current);
+        log.info("size    = " + size);
+        log.info("book = " + book);
 
         IPage<Book> page = bookService.getPage(current, size, book);
         // 如果当前页码值大于总页码值，重新执行查询，使用最大页码值作为当前页码值
