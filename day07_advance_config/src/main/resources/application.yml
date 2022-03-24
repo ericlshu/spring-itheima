@@ -8,6 +8,8 @@ servers:
 #  IP_ADDRESS: 192.168.0.1  # 常量模式
   port: 2345
   timeout: -1
-
+  server-time-out: 3
+#  data-size: 10MB
+  data-size: 10
 datasource:
   driver-class-name: com.mysql.jdbc.Driver
