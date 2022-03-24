@@ -60,6 +60,8 @@ public class BookController {
     {
         log.info("id = " + id);
         log.info("test hot deploy ...");
+        log.warn("test hot deploy ...");
+        log.error("test hot deploy ...");
         return new Result(true, bookService.getById(id));
     }
 

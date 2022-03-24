@@ -22,3 +22,8 @@ mybatis-plus:
 logging:
   level:
     com.eric.mapper: debug
+
+devtools:
+  restart:
+    exclude: public/**,static/**
+    enabled: false
