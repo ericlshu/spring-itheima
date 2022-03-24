@@ -1,0 +1,4 @@
+test:
+  prop: property
+  args: argument
+  param: "parameter in yaml"
