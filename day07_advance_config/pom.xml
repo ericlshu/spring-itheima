@@ -49,6 +49,18 @@
             <version>1.2.8</version>
         </dependency>
 
+        <!--1. 添加JSR303规范-->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+
+        <!--2. 使用hibernate规范数据校验格式-->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
