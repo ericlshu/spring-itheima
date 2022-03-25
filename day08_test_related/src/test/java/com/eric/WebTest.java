@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.ContentResultMatchers;
+import org.springframework.test.web.servlet.result.HeaderResultMatchers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.result.StatusResultMatchers;
 
@@ -121,4 +122,35 @@ public class WebTest {
         actions.andExpect(resultAsJson);
     }
 
+    /**
+     * MockHttpServletResponse:
+     *            Status = 200
+     *     Error message = null
+     *           Headers = [Content-Type:"text/plain;charset=UTF-8", Content-Length:"19"]
+     *      Content type = text/plain;charset=UTF-8
+     *              Body = springboot web test
+     *     Forwarded URL = null
+     *    Redirected URL = null
+     *           Cookies = []
+     *
+     * java.lang.AssertionError: Response header 'Content-Type' expected:<application/json> but was:<text/plain;charset=UTF-8>
+     * Expected :application/json
+     * Actual   :text/plain;charset=UTF-8
+     */
+    @Test
+    void testContentType(@Autowired MockMvc mvc) throws Exception
+    {
+        log.warn("com.eric.WebTest.testContentType ...");
+        RequestBuilder builder = MockMvcRequestBuilders.get("/books/1");
+        ResultActions actions = mvc.perform(builder);
+
+        // 1. 通过结果匹配器获得当前模拟运行结果头信息
+        HeaderResultMatchers header = MockMvcResultMatchers.header();
+
+        // 2. 定义预期执行header结果
+        ResultMatcher contentType = header.string("Content-Type", "application/json");
+
+        // 3. 添加预期值到本次调用过程中进行匹配
+        actions.andExpect(contentType);
+    }
 }
