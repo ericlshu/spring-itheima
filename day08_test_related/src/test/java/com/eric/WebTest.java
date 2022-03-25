@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.ContentResultMatchers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.result.StatusResultMatchers;
 
@@ -65,5 +66,26 @@ public class WebTest {
 
         // 3. 添加预期值到本次调用过程中进行匹配
         actions.andExpect(statusOk);
+    }
+
+    /**
+     * Response content expected:<springboot web testing> but was:<springboot web test>
+     */
+    @Test
+    void testBody(@Autowired MockMvc mvc) throws Exception
+    {
+        log.warn("com.eric.WebTest.testBody ...");
+
+        RequestBuilder builder = MockMvcRequestBuilders.get("/books");
+        ResultActions actions = mvc.perform(builder);
+
+        // 1. 通过结果匹配器获得当前模拟运行结果
+        ContentResultMatchers content = MockMvcResultMatchers.content();
+
+        // 2. 定义预期执行状态
+        ResultMatcher responseBody = content.string("springboot web testing");
+
+        // 3. 添加预期值到本次调用过程中进行匹配
+        actions.andExpect(responseBody);
     }
 }

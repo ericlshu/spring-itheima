@@ -19,7 +19,7 @@ public class BookController {
     @GetMapping
     public String getById()
     {
-        String result = "com.eric.controller.BookController.getById ...";
+        String result = "springboot web test";
         log.warn("result = " + result);
         return result;
     }
