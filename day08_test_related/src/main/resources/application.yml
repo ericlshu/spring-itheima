@@ -22,3 +22,12 @@ mybatis-plus:
 logging:
   level:
     com.eric.mapper: debug
+
+testcase:
+  book:
+    id: ${random.int}           # 随机整数
+    id1: ${random.int(10)}      # 10以内随机数
+    id2: ${random.int(10,20)}   # 10到20随机数
+    name: ${random.value}       # 随机字符串,MD5字符串,32位
+    uuid: ${random.uuid}        # 随机uuid
+    publishTime: ${random.long} # 随机整数(long范围)
