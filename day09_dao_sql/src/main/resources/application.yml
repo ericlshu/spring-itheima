@@ -49,9 +49,12 @@ spring:
       path: /h2
       enabled: true
 # ↓ Below configuration can be commented after first start succeeded
-#  datasource:
-#    url: jdbc:h2:~/test
-#    hikari:
-#      username: sa
-#      password: 123456
-#      driver-class-name: org.h2.Driver
+  datasource:
+    url: jdbc:h2:~/test
+    hikari:
+      username: sa
+      password: 123456
+#      driver-class-name: org.h2.Driver 此项配置可以省略，因为在URL中可以识别出H2数据库
+
+#Data file in C:\Users\{username}\test.mv.db
+#Condfig file in C:\Users\{username}\.h2.server.properties

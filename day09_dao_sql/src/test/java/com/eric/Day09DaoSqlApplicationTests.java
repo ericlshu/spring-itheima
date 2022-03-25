@@ -52,4 +52,16 @@ class Day09DaoSqlApplicationTests {
             log.warn("book : " + book);
         }
     }
+
+    @Test
+    void testH2Database()
+    {
+        String sql= "insert into book values (?,?)";
+        int result = jdbcTemplate.update(sql, 5,"SpringBoot Name5");
+        System.out.println("result = " + result);
+
+        sql = "select * from book";
+        List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql);
+        System.out.println("maps = " + maps);
+    }
 }
