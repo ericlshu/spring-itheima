@@ -21,15 +21,21 @@ spring:
       maximum-pool-size: 50
 #    tomcat:
 #    dbcp2:
+  jdbc:
+    template:
+      max-rows: 1000
+      fetch-size: 100
+      query-timeout: -1
 
-mybatis-plus:
-  global-config:
-    db-config:
-      table-prefix: tbl_
-      id-type: AUTO
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#mybatis-plus:
+#  global-config:
+#    db-config:
+#      table-prefix: tbl_
+#      id-type: AUTO
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 logging:
   level:
     com.eric.mapper: debug
+
