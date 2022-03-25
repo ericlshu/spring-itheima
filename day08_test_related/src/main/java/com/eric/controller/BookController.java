@@ -28,7 +28,9 @@ public class BookController {
     @GetMapping("/2")
     public Book getBook()
     {
-        Book book = new Book(1, "Java编程思想");
+        Book book = new Book();
+        book.setId(1);
+        book.setName("Java编程思想");
         log.warn("book = " + book);
         return book;
     }
