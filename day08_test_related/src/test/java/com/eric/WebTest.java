@@ -153,4 +153,42 @@ public class WebTest {
         // 3. 添加预期值到本次调用过程中进行匹配
         actions.andExpect(contentType);
     }
+
+    @Test
+    void testGetById(@Autowired MockMvc mvc) throws Exception
+    {
+        log.warn("com.eric.WebTest.testContentType ...");
+        RequestBuilder builder = MockMvcRequestBuilders.get("/books/1");
+        ResultActions actions = mvc.perform(builder);
+
+        // 1. 通过结果匹配器获得当前模拟运行结果
+        StatusResultMatchers status = MockMvcResultMatchers.status();
+        ContentResultMatchers content = MockMvcResultMatchers.content();
+        HeaderResultMatchers header = MockMvcResultMatchers.header();
+
+        // 2. 定义预期执行结果
+        ResultMatcher statusOk = status.isOk();
+        ResultMatcher resultAsString = content.string("springboot web test");
+        ResultMatcher contentType = header.string("Content-Type", "text/plain;charset=UTF-8");
+
+        // 3. 添加预期值到本次调用过程中进行匹配
+        actions.andExpect(statusOk);
+        actions.andExpect(resultAsString);
+        actions.andExpect(contentType);
+    }
+
+    @Test
+    void testGetBook(@Autowired MockMvc mvc) throws Exception
+    {
+        log.warn("com.eric.WebTest.testGetBook ...");
+        RequestBuilder builder = MockMvcRequestBuilders.get("/books/2");
+        ResultActions actions = mvc.perform(builder);
+
+        // 1. 通过结果匹配器获得当前模拟运行结果
+        // 2. 定义预期执行结果
+        // 3. 添加预期值到本次调用过程中进行匹配
+        actions.andExpect(MockMvcResultMatchers.status().isOk());
+        actions.andExpect(MockMvcResultMatchers.content().json("{\"id\":1,\"name\":\"Java编程思想\"}"));
+        actions.andExpect(MockMvcResultMatchers.header().string("Content-Type", "application/json"));
+    }
 }
