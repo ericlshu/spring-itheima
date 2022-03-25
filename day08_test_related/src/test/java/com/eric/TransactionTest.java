@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Description :
@@ -15,6 +17,8 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @Slf4j
 @SpringBootTest
+@Transactional
+@Rollback
 public class TransactionTest {
 
     @Autowired
@@ -24,7 +28,7 @@ public class TransactionTest {
     void testSave()
     {
         Book book = new Book();
-        book.setName("Java编程思想（第4版）");
+        book.setName("Java编程思想（第6版）");
         book.setDescription("Java学习必读经典,殿堂级著作！赢得了全球程序员的广泛赞誉。");
         book.setType("编程技术");
         boolean result = bookService.save(book);
