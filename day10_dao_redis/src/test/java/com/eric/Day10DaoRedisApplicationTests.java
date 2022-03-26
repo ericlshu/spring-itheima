@@ -26,6 +26,7 @@ class Day10DaoRedisApplicationTests {
         valueOperations.set("age", 28);
         int age = (int) valueOperations.get("age");
         System.out.println("age = " + age);
+        redisTemplate.delete("age");
     }
 
     @Test
@@ -36,6 +37,12 @@ class Day10DaoRedisApplicationTests {
         opsForHash.put("info","b","bb");
         Object o = opsForHash.get("info", "a");
         System.out.println("o = " + o);
+    }
+
+    @Test
+    void testDelete()
+    {
+        redisTemplate.delete("info");
     }
 
 }
