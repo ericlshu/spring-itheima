@@ -18,12 +18,11 @@ public class StringRedisTemplateTest {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-
     @Test
     void test()
     {
         ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
-        ops.set("name", "test");
+        ops.set("name", "eric");
         String name = ops.get("name");
         System.out.println("name = " + name);
     }
