@@ -3,15 +3,24 @@ package com.eric;
 import com.alibaba.fastjson.JSON;
 import com.eric.domain.Book;
 import com.eric.mapper.BookMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.bulk.BulkRequest;
+import org.elasticsearch.action.get.GetRequest;
+import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.search.SearchRequest;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,6 +36,7 @@ import java.util.List;
  * @author Eric L SHU
  * @date 2022-03-27 14:42
  */
+@Slf4j
 @SpringBootTest
 public class EsRestHighLevelClientTest {
 
@@ -45,13 +55,11 @@ public class EsRestHighLevelClientTest {
     }
 
     RestHighLevelClient client;
-    CreateIndexRequest request;
 
     @BeforeEach
     void setUp()
     {
         client = new RestHighLevelClient(RestClient.builder(HttpHost.create("http://localhost:9200")));
-        request = new CreateIndexRequest("books");
     }
 
     @AfterEach
@@ -63,6 +71,7 @@ public class EsRestHighLevelClientTest {
     @Test
     public void testCreateIndex() throws IOException
     {
+        CreateIndexRequest request = new CreateIndexRequest("books");
         client.indices().create(request, RequestOptions.DEFAULT);
     }
 
@@ -72,6 +81,7 @@ public class EsRestHighLevelClientTest {
     @Test
     void testCreateIndexByIK() throws IOException
     {
+        CreateIndexRequest request = new CreateIndexRequest("books");
         String source = "{\n" +
                 "    \"mappings\":{\n" +
                 "        \"properties\":{\n" +
@@ -138,5 +148,40 @@ public class EsRestHighLevelClientTest {
             bulkRequest.add(request);
         }
         client.bulk(bulkRequest, RequestOptions.DEFAULT);
+    }
+
+    /**
+     * 按id查询文档
+     */
+    @Test
+    void testGetRequest() throws IOException
+    {
+        GetRequest request = new GetRequest("books", "1");
+        GetResponse response = client.get(request, RequestOptions.DEFAULT);
+        String resultAsJson = response.getSourceAsString();
+        System.out.println("resultAsJson = " + resultAsJson);
+    }
+
+    /**
+     * 按条件查询文档
+     */
+    @Test
+    void testSearch() throws IOException
+    {
+        SearchRequest request = new SearchRequest("books");
+
+        SearchSourceBuilder builder = new SearchSourceBuilder();
+        builder.query(QueryBuilders.termQuery("type","悬疑推理"));
+        request.source(builder);
+
+        SearchResponse response = client.search(request, RequestOptions.DEFAULT);
+        SearchHits hits = response.getHits();
+        for (SearchHit hit : hits)
+        {
+            String sourceAsString = hit.getSourceAsString();
+            System.out.println("sourceAsString = " + sourceAsString);
+            Book book = JSON.parseObject(sourceAsString, Book.class);
+            log.info("book = " + book);
+        }
     }
 }
