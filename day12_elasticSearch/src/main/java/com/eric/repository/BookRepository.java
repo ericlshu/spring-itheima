@@ -1,7 +1,5 @@
 package com.eric.repository;
 
-import com.eric.domain.Book;
-import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,5 +9,5 @@ import org.springframework.stereotype.Component;
  * @date 2022-03-27 14:26
  */
 @Component
-public interface BookRepository extends ElasticsearchRepository<Book, String> {
+public interface BookRepository{ // extends ElasticsearchRepository<Book, String> {
 }
