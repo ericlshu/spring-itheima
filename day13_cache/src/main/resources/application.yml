@@ -8,6 +8,10 @@ spring:
       url: jdbc:mysql://localhost:3306/test
       username: eric
       password: 1234
+  cache:
+    type: EHCACHE
+    ehcache:
+      config: classpath:ehcache.xml
 
 mybatis-plus:
   global-config:
