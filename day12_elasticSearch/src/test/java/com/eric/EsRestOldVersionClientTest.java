@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @date 2022-03-27 14:37
  */
 @SpringBootTest
-public class OldVersionElasticsearchTest {
+public class EsRestOldVersionClientTest {
     // @Autowired
     // private ElasticsearchRestTemplate elasticsearchRestTemplate;
     //
