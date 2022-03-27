@@ -3,6 +3,7 @@ package com.eric.service.impl;
 import com.eric.domain.Book;
 import com.eric.mapper.BookMapper;
 import com.eric.service.BookService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,17 +31,27 @@ public class BookServiceImpl implements BookService {
         return bookMapper.insert(book) > 0;
     }
 
+    // @Override
+    // public Book getById(Integer id)
+    // {
+    //     //如果当前缓存中没有本次要查询的数据，则进行查询，否则直接从缓存中获取数据返回
+    //     Book book = cache.get(id);
+    //     if (book == null)
+    //     {
+    //         book = bookMapper.selectById(id);
+    //         cache.put(id,book);
+    //     }
+    //     return book;
+    // }
+
+    /**
+     * 设置当前操作的结果数据进入缓存 @Cacheable(value = "cacheSpace", key = "#id")
+     */
     @Override
+    @Cacheable(value = "cacheSpace", key = "#id")
     public Book getById(Integer id)
     {
-        //如果当前缓存中没有本次要查询的数据，则进行查询，否则直接从缓存中获取数据返回
-        Book book = cache.get(id);
-        if (book == null)
-        {
-            book = bookMapper.selectById(id);
-            cache.put(id,book);
-        }
-        return book;
+        return bookMapper.selectById(id);
     }
 
     @Override
