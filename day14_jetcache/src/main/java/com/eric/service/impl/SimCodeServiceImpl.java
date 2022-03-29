@@ -1,6 +1,7 @@
 package com.eric.service.impl;
 
 import com.alicp.jetcache.Cache;
+import com.alicp.jetcache.anno.CacheType;
 import com.alicp.jetcache.anno.CreateCache;
 import com.eric.domain.SimCode;
 import com.eric.service.SimCodeService;
@@ -24,7 +25,7 @@ public class SimCodeServiceImpl implements SimCodeService {
     @Resource(name = "codeUtils")
     private CodeUtils codeUtils;
 
-    @CreateCache(area = "default", name = "jetCache", expire = 10, timeUnit = TimeUnit.SECONDS)
+    @CreateCache(area = "default", name = "jetCache", expire = 10, timeUnit = TimeUnit.SECONDS,cacheType = CacheType.LOCAL)
     private Cache<String, String> jetCache;
 
     @Override
