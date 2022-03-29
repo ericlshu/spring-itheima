@@ -5,7 +5,9 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.5</version>
+        <!--2.6.x版本有循环依赖的问题-->
+        <!--https://github.com/alibaba/jetcache/issues/624-->
+        <version>2.5.4</version>
     </parent>
     <groupId>com.eric</groupId>
     <artifactId>day14_jetcache</artifactId>
@@ -49,6 +51,11 @@
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
         -->
+        <dependency>
+            <groupId>com.alicp.jetcache</groupId>
+            <artifactId>jetcache-starter-redis</artifactId>
+            <version>2.6.2</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

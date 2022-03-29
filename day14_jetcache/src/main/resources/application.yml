@@ -16,3 +16,12 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: eric
       password: 1234
+
+jetcache:
+  remote:
+    default:
+      type: redis
+      host: localhost
+      port: 6379
+      poolConfig:
+        maxTotal: 50
