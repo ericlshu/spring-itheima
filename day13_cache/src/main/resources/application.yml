@@ -8,10 +8,23 @@ spring:
       url: jdbc:mysql://localhost:3306/test
       username: eric
       password: 1234
+
+#ehcache config
+#  cache:
+#    type: EHCACHE
+#    ehcache:
+#      config: classpath:ehcache.xml
+
+#redis config
   cache:
-    type: EHCACHE
-    ehcache:
-      config: classpath:ehcache.xml
+    type: REDIS
+    redis:
+      host: localhost
+      port: 6379
+      use-key-prefix: true      # 是否使用前缀名（系统定义前缀名）
+      key-prefix: sim_          # 追加自定义前缀名
+      time-to-live: 10s         # 有效时长
+      cache-null-values: false  # 是否允许存储空值
 
 mybatis-plus:
   global-config:
