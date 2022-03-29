@@ -23,6 +23,10 @@ public class XMemcachedConfig {
     @Bean
     public MemcachedClient getMemcachedClient() throws IOException
     {
-        return new XMemcachedClientBuilder("localhost:11211").build();
+        // return new XMemcachedClientBuilder("localhost:11211").build();
+        XMemcachedClientBuilder memcachedClientBuilder = new XMemcachedClientBuilder(properties.getServers());
+        memcachedClientBuilder.setOpTimeout(properties.getOpTimeOut());
+        memcachedClientBuilder.setConnectionPoolSize(properties.getPoolSize());
+        return memcachedClientBuilder.build();
     }
 }
