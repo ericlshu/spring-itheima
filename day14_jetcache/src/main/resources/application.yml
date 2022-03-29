@@ -18,11 +18,15 @@ spring:
       password: 1234
 
 jetcache:
+  statIntervalMinutes: 1
   remote:
     default:
       type: redis
       host: localhost
       port: 6379
+      keyConvertor: fastjson
+      valueEncoder: java
+      valueDecoder: java
       poolConfig:
         maxTotal: 50
   local:
