@@ -26,11 +26,13 @@ public class SengMailServiceImpl implements SendMailService {
         String to = "shuli0502@hotmail.com";
         String subject = "[Java-Mail-Test]-邮件发送测试";
         String context = "Spring Boot Java Mail 整合邮件发送测试。";
-        SimpleMailMessage mimeMessage = new SimpleMailMessage();
-        mimeMessage.setFrom(from + "(Eric L SHU)");
-        mimeMessage.setTo(to);
-        mimeMessage.setSubject(subject);
-        mimeMessage.setText(context);
-        javaMailSender.send(mimeMessage);
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(from + "(Eric L SHU)");
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(context);
+
+        javaMailSender.send(message);
     }
 }
