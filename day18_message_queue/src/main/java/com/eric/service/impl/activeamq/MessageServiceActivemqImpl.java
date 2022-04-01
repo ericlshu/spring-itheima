@@ -1,36 +1,35 @@
-package com.eric.service.impl;
+package com.eric.service.impl.activeamq;
 
 import com.eric.service.MessageService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Description :
  *
  * @author Eric L SHU
- * @date 2022-03-31 15:01
+ * @date 2022-04-01 12:51
  */
-@Service
 @Slf4j
-public class MessageServiceImpl implements MessageService {
+@Service("messageServiceActivemq")
+public class MessageServiceActivemqImpl implements MessageService {
 
-    private final List<String> messageList = new ArrayList<>();
+    @Autowired
+    private JmsMessagingTemplate messagingTemplate;
 
     @Override
     public void sendMessage(String id)
     {
         log.warn("待发送短信的订单[{}]已进入处理队列", id);
-        messageList.add(id);
+        messagingTemplate.convertAndSend(id);
     }
 
     @Override
     public String doSendMessage()
     {
-        String id = messageList.remove(0);
-        log.warn("已完成订单[{}]短信发送业务", id);
+        messagingTemplate.receiveAndConvert(String.class);
         log.warn("--------------------------------------------------------------------");
         return null;
     }

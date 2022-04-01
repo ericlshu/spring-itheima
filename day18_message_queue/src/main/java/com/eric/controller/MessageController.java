@@ -17,7 +17,7 @@ import javax.annotation.Resource;
 @RequestMapping("/msg")
 public class MessageController {
 
-    @Resource
+    @Resource(name = "messageServiceActivemq")
     private MessageService messageService;
 
     @GetMapping
