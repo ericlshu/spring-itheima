@@ -23,13 +23,13 @@ public class MessageServiceActivemqImpl implements MessageService {
     public void sendMessage(String id)
     {
         log.warn("待发送短信的订单[{}]已进入处理队列", id);
-        messagingTemplate.convertAndSend(id);
+        messagingTemplate.convertAndSend("order.queue.id", id);
     }
 
     @Override
     public String doSendMessage()
     {
-        messagingTemplate.receiveAndConvert(String.class);
+        messagingTemplate.receiveAndConvert("order.queue.id", String.class);
         log.warn("--------------------------------------------------------------------");
         return null;
     }
