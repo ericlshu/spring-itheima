@@ -14,10 +14,10 @@ import javax.annotation.Resource;
  * @date 2022-03-31 14:58
  */
 @Slf4j
-@Service
+@Service("orderService")
 public class OrderServiceImpl implements OrderService {
 
-    @Resource
+    @Resource(name = "rabbitmqDirectMessageService")
     private MessageService messageService;
 
     @Override
@@ -26,6 +26,5 @@ public class OrderServiceImpl implements OrderService {
         log.warn("订单处理开始--->");
         messageService.sendMessage(id);
         log.warn("订单处理结束<---");
-        log.warn("--------------------------------------------------------------------");
     }
 }
