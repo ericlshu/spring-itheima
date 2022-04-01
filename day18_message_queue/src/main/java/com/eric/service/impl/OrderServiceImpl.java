@@ -17,14 +17,15 @@ import javax.annotation.Resource;
 @Service("orderService")
 public class OrderServiceImpl implements OrderService {
 
-    @Resource(name = "rabbitmqDirectMessageService")
+    @Resource(name = "rabbitmqTopicMessageService")
     private MessageService messageService;
 
     @Override
     public void executeOrder(String id)
     {
-        log.warn("订单处理开始--->");
+        log.info("-------------------------------------------");
+        log.warn("<-------------- 订单处理开始 ---------------->");
         messageService.sendMessage(id);
-        log.warn("订单处理结束<---");
+        log.warn("<-------------- 订单处理结束 ---------------->");
     }
 }
