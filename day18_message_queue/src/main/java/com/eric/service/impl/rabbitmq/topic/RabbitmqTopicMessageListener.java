@@ -2,7 +2,6 @@ package com.eric.service.impl.rabbitmq.topic;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.stereotype.Component;
 
 /**
  * Description :
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Component;
  * @author Eric L SHU
  * @date 2022-04-01 20:20
  */
-@Component
+// @Component
 @Slf4j
 public class RabbitmqTopicMessageListener {
 

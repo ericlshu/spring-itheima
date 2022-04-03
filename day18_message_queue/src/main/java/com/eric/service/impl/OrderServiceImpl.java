@@ -17,7 +17,7 @@ import javax.annotation.Resource;
 @Service("orderService")
 public class OrderServiceImpl implements OrderService {
 
-    @Resource(name = "rabbitmqTopicMessageService")
+    @Resource(name = "rocketmqMessageService")
     private MessageService messageService;
 
     @Override
