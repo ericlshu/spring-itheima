@@ -6,7 +6,6 @@ import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * Description :
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @date 2022-04-01 15:47
  */
 @Slf4j
-@Service("rocketmqMessageService")
+// @Service("rocketmqMessageService")
 public class RocketmqMessageServiceImpl implements MessageService
 {
     @Autowired

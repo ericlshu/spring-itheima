@@ -2,6 +2,12 @@ server:
   port: 80
 
 spring:
+# <-- kafka -->
+  kafka:
+    bootstrap-servers:
+      - localhost:9092
+    consumer:
+      group-id: order
 
 # <-- activemq -->
 #  activemq:
@@ -18,7 +24,7 @@ spring:
 #    port: 5672
 
 # <-- rocketmq -->
-rocketmq:
-  name-server: localhost:9876
-  producer:
-    group: group_rocketmq
+#rocketmq:
+#  name-server: localhost:9876
+#  producer:
+#    group: group_rocketmq

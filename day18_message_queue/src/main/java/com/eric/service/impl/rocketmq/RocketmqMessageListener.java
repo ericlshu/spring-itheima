@@ -1,9 +1,7 @@
 package com.eric.service.impl.rocketmq;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;
-import org.springframework.stereotype.Component;
 
 /**
  * Description :
@@ -13,8 +11,8 @@ import org.springframework.stereotype.Component;
  * @since jdk-11.0.14
  */
 @Slf4j
-@Component
-@RocketMQMessageListener(topic = "order_id", consumerGroup = "group_rocketmq")
+// @Component
+// @RocketMQMessageListener(topic = "order_id", consumerGroup = "group_rocketmq")
 public class RocketmqMessageListener implements RocketMQListener<String>
 {
     @Override
