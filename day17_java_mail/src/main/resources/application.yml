@@ -2,4 +2,4 @@ spring:
   mail:
     host: smtp.qq.com
     username: outlieric@vip.qq.com
-    password: ujdhkmpyczgbbhaa
+    password: test
