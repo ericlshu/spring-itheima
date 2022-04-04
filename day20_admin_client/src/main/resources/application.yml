@@ -12,8 +12,16 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+    info:
+      enabled: true
   endpoints:
     web:
       exposure:
         include:
           - "*"
+    enabled-by-default: true
+
+info:
+  author: EricSHU
+  appName: @project.artifactId@
+  version: @project.version@
