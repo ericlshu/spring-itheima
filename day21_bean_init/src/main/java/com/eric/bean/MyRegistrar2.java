@@ -1,5 +1,6 @@
 package com.eric.bean;
 
+import com.eric.service.impl.BookServiceImpl3;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -15,13 +16,13 @@ import org.springframework.core.type.AnnotationMetadata;
  * @date 2022-04-05 22:13
  * @since jdk-11.0.14
  */
-public class MyImportBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar
+public class MyRegistrar2 implements ImportBeanDefinitionRegistrar
 {
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry)
     {
-        BeanDefinition beanDefinition = BeanDefinitionBuilder.rootBeanDefinition(Dog.class).getBeanDefinition();
+        BeanDefinition beanDefinition = BeanDefinitionBuilder.rootBeanDefinition(BookServiceImpl3.class).getBeanDefinition();
         beanDefinition.setScope(BeanDefinition.SCOPE_SINGLETON);
-        registry.registerBeanDefinition("johnson", beanDefinition);
+        registry.registerBeanDefinition("bookService", beanDefinition);
     }
 }

@@ -1,6 +1,6 @@
 package com.eric.config;
 
-import com.eric.bean.MyImportBeanDefinitionRegistrar;
+import com.eric.bean.MyRegistrar1;
 import org.springframework.context.annotation.Import;
 
 /**
@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Import;
  * @since jdk-11.0.14
  */
 // @Configuration
-@Import({MyImportBeanDefinitionRegistrar.class})
+@Import({MyRegistrar1.class})
 public class SpringConfig7
 {
 }
