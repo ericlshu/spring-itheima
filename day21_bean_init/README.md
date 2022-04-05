@@ -1,0 +1,12 @@
+1. xml+<bean/>
+2. xml:context+注解（@Component+4个@Bean）
+3. 配置类+扫描+注解（@Component+4个@Bean）
+    - @Bean定义FactoryBean接口
+    - @ImportResource
+    - @Configuration注解的proxyBeanMethods属性
+4. @Import导入bean的类
+    - @Import导入配置类
+5. AnnotationConfigApplicationContext调用register方法
+6. @Import导入ImportSelector接口
+7. @Import导入ImportBeanDefinitionRegistrar接口
+8. @Import导入BeanDefinitionRegistryPostProcessor接口
