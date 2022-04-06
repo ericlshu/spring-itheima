@@ -1,5 +1,7 @@
 package com.eric.bean;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnNotWebApplication;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Component;
  * @since jdk-11.0.14
  */
 @Component("tom")
+@ConditionalOnBean(name = "jerry")
+@ConditionalOnNotWebApplication
 public class Cat
 {
 }

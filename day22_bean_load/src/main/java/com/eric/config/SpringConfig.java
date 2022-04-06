@@ -1,10 +1,6 @@
 package com.eric.config;
 
-import com.eric.bean.Cat;
-import com.eric.bean.Mouse;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * Description :
@@ -22,21 +18,21 @@ import org.springframework.context.annotation.Import;
  * @since jdk-11.0.14
  */
 // @Import(MyImportSelector.class)
-@Import(Mouse.class)
+// @Import(Mouse.class)
+@ComponentScan("com.eric.bean")
 public class SpringConfig
 {
-    @Bean
+    // @Bean
     // @ConditionalOnClass(Mouse.class)
     // @ConditionalOnClass(name = "com.eric.bean.Mouse")
     // @ConditionalOnMissingClass("com.eric.bean.Wolf")
     // @ConditionalOnBean(name = "com.eric.bean.Mouse")
-
     // @ConditionalOnBean(name = "jerry")
     // @ConditionalOnMissingClass("com.eric.bean.Dog")
     // @ConditionalOnNotWebApplication
-    @ConditionalOnWebApplication
-    public Cat tom()
-    {
-        return new Cat();
-    }
+    // @ConditionalOnWebApplication
+    // public Cat tom()
+    // {
+    //     return new Cat();
+    // }
 }
