@@ -15,6 +15,18 @@ public class MyImportSelector implements ImportSelector
     @Override
     public String[] selectImports(AnnotationMetadata metadata)
     {
-        return new String[]{"com.eric.bean.Cat"};
+        try
+        {
+            Class<?> clazz = Class.forName("com.eric.bean.Wolf");
+            if (clazz != null)
+            {
+                return new String[]{"com.eric.bean.Cat"};
+            }
+        }
+        catch (ClassNotFoundException e)
+        {
+            return new String[0];
+        }
+        return new String[0];
     }
 }
