@@ -1,8 +1,8 @@
 package com.eric.bean;
 
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 /**
  * Description :
@@ -13,17 +13,26 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = "cartoon")
+// @ConfigurationProperties(prefix = "cartoon")
 public class TomAndJerry
 {
     private Cat cat;
     private Mouse mouse;
 
-    /*public TomAndJerry()
+    private CartoonProperties cartoonProperties;
+
+    public TomAndJerry(CartoonProperties cartoonProperties)
     {
-        cat = new Cat("tom", 4);
-        mouse = new Mouse("jerry", 3);
-    }*/
+        this.cartoonProperties = cartoonProperties;
+
+        cat = new Cat();
+        cat.setName(cartoonProperties.getCat() != null && StringUtils.hasText(cartoonProperties.getCat().getName()) ? cartoonProperties.getCat().getName() : "tom");
+        cat.setAge(cartoonProperties.getCat() != null && cartoonProperties.getCat().getAge() != null ? cartoonProperties.getCat().getAge() : 3);
+
+        mouse = new Mouse();
+        mouse.setName(cartoonProperties.getMouse() != null && StringUtils.hasText(cartoonProperties.getMouse().getName()) ? cartoonProperties.getMouse().getName() : "jerry");
+        mouse.setAge(cartoonProperties.getMouse() != null && cartoonProperties.getMouse().getAge() != null ? cartoonProperties.getMouse().getAge() : 4);
+    }
 
     public void play()
     {
