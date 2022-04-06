@@ -1,7 +1,7 @@
 package com.eric.bean;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.util.StringUtils;
 
 /**
@@ -12,8 +12,9 @@ import org.springframework.util.StringUtils;
  * @since jdk-11.0.14
  */
 @Data
-@Component
+// @Component
 // @ConfigurationProperties(prefix = "cartoon")
+@EnableConfigurationProperties({CartoonProperties.class})  //仅在加载当前类时加载配置类
 public class TomAndJerry
 {
     private Cat cat;
