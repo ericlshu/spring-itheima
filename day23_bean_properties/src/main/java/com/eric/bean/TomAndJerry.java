@@ -1,5 +1,7 @@
 package com.eric.bean;
 
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,17 +11,19 @@ import org.springframework.stereotype.Component;
  * @date 2022-04-06 21:18
  * @since jdk-11.0.14
  */
+@Data
 @Component
+@ConfigurationProperties(prefix = "cartoon")
 public class TomAndJerry
 {
     private Cat cat;
     private Mouse mouse;
 
-    public TomAndJerry()
+    /*public TomAndJerry()
     {
         cat = new Cat("tom", 4);
         mouse = new Mouse("jerry", 3);
-    }
+    }*/
 
     public void play()
     {

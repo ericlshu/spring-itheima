@@ -1,0 +1,9 @@
+cartoon:
+  cat:
+#    name: tom
+    name: "图多盖洛"
+    age: 5
+  mouse:
+#    name: jerry
+    name: "泰菲"
+    age: 1
