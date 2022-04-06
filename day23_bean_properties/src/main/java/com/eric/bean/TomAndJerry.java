@@ -12,11 +12,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class TomAndJerry
 {
-    private Cat tom;
-    private Mouse jerry;
+    private Cat cat;
+    private Mouse mouse;
+
+    public TomAndJerry()
+    {
+        cat = new Cat("tom", 4);
+        mouse = new Mouse("jerry", 3);
+    }
 
     public void play()
     {
-        System.out.println("4岁的tom和3岁的jerry打起来了");
+        System.out.println(cat.getAge() + "岁的" + cat.getName() + "和" + mouse.getAge() + "岁的" + mouse.getName() + "打起来了");
     }
 }
