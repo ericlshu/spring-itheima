@@ -2,6 +2,7 @@ package com.eric.bean;
 
 import lombok.Data;
 import org.springframework.beans.BeansException;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -17,6 +18,7 @@ import org.springframework.util.StringUtils;
 @Data
 // @Component
 // @ConfigurationProperties(prefix = "cartoon")
+@ConditionalOnClass(name = "org.springframework.data.redis.core.RedisOperations")
 @EnableConfigurationProperties({CartoonProperties.class})  //仅在加载当前类时加载配置类
 public class TomAndJerry implements ApplicationContextAware
 {
