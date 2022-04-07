@@ -7,3 +7,9 @@ cartoon:
 #    name: jerry
     name: "泰菲"
     age: 1
+
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration
+#      - org.springframework.boot.autoconfigure.context.LifecycleAutoConfiguration
