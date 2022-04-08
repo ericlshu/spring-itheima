@@ -4,12 +4,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.eric.controller.utils.Result;
 import com.eric.domain.Book;
 import com.eric.service.IBookService;
-import com.eric.service.IpCountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.io.IOException;
 
 /**
@@ -77,8 +75,8 @@ public class BookControllerNew
         return new Result(true, page);
     }
 
-    @Resource
-    private IpCountService ipCountService;
+    // @Resource
+    // private IpCountService ipCountService;
 
     @GetMapping("{current}/{size}")
     public Result getPage(@PathVariable int current, @PathVariable int size, Book book)
@@ -87,7 +85,7 @@ public class BookControllerNew
         log.debug("size    = " + size);
         log.debug("book = " + book);
 
-        ipCountService.count();
+        // ipCountService.count();
 
         IPage<Book> page = bookService.getPage(current, size, book);
         // 如果当前页码值大于总页码值，重新执行查询，使用最大页码值作为当前页码值

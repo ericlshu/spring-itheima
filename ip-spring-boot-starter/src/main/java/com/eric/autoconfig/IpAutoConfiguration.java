@@ -1,5 +1,6 @@
 package com.eric.autoconfig;
 
+import com.eric.interceptor.SpringMvcConfig;
 import com.eric.properties.IpProperties;
 import com.eric.service.IpCountService;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +16,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 @EnableScheduling
 // @EnableConfigurationProperties(IpProperties.class)
-@Import({IpProperties.class})
+@Import({IpProperties.class, SpringMvcConfig.class})
 public class IpAutoConfiguration
 {
     @Bean
