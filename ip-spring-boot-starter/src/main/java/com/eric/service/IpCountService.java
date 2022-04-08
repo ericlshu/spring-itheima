@@ -41,7 +41,9 @@ public class IpCountService
     @Resource
     private IpProperties ipProperties;
 
-    @Scheduled(cron = "0/5 * * * * ?")
+    // @Scheduled(cron = "0/5 * * * * ?")
+    // @Scheduled(cron = "0/${tools.ip.interval:5} * * * * ?")
+    @Scheduled(cron = "0/#{ipProperties.interval} * * * * ?")
     public void output()
     {
         if (IpProperties.LogMode.DETAIL.getValue().equals(ipProperties.getLogMode()))
@@ -60,7 +62,6 @@ public class IpCountService
                 log.info(String.format("|%18s  |", ip));
             log.info("+--------------------+");
         }
-
         if (ipProperties.getResetFlag())
         {
             ipCountMap.clear();

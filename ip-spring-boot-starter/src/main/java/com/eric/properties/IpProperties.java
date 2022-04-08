@@ -1,6 +1,7 @@
 package com.eric.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 /**
  * Description :
@@ -9,6 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @date 2022-04-08 22:05
  * @since jdk-11.0.14
  */
+@Component("ipProperties")
 @ConfigurationProperties(prefix = "tools.ip")
 public class IpProperties
 {

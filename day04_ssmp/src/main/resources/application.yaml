@@ -37,6 +37,6 @@ management:
           - "*"
 tools:
   ip:
-#    interval: 10
+    interval: 10
 #    reset-flag: true
-    log-mode: simple
+    log-mode: detail
