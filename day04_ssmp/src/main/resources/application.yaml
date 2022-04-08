@@ -24,7 +24,7 @@ mybatis-plus:
 
 logging:
   level:
-    com.eric.mapper: debug
+    com.eric.mapper: info
 
 management:
   endpoint:

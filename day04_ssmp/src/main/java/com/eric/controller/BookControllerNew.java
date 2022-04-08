@@ -83,9 +83,9 @@ public class BookControllerNew
     @GetMapping("{current}/{size}")
     public Result getPage(@PathVariable int current, @PathVariable int size, Book book)
     {
-        log.info("current = " + current);
-        log.info("size    = " + size);
-        log.info("book = " + book);
+        log.debug("current = " + current);
+        log.debug("size    = " + size);
+        log.debug("book = " + book);
 
         ipCountService.count();
 
@@ -95,5 +95,4 @@ public class BookControllerNew
             page = bookService.getPage((int) page.getPages(), size, book);
         return new Result(true, page);
     }
-
 }
