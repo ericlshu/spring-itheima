@@ -35,3 +35,8 @@ management:
       exposure:
         include:
           - "*"
+tools:
+  ip:
+#    interval: 10
+#    reset-flag: true
+    log-mode: simple

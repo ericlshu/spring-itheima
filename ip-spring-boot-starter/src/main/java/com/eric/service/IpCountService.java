@@ -1,5 +1,6 @@
 package com.eric.service;
 
+import com.eric.properties.IpProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -37,17 +38,33 @@ public class IpCountService
         ipCountMap.put(ip, ipCountMap.getOrDefault(ip, 0) + 1);
     }
 
+    @Resource
+    private IpProperties ipProperties;
+
     @Scheduled(cron = "0/5 * * * * ?")
     public void output()
     {
-        log.warn("<--------- IP 访问监控 --------->");
-        log.warn("+-----ip-address-----+--count--+");
-
-        for (Map.Entry<String, Integer> entry : ipCountMap.entrySet())
+        if (IpProperties.LogMode.DETAIL.getValue().equals(ipProperties.getLogMode()))
         {
-            log.info(String.format("|%18s  |  %-6d |", entry.getKey(), entry.getValue()));
+            log.warn("<------ IP访问监控-Detail ------>");
+            log.warn("+-----ip-address-----+--count--+");
+            for (Map.Entry<String, Integer> entry : ipCountMap.entrySet())
+                log.info(String.format("|%18s  |  %-6d |", entry.getKey(), entry.getValue()));
+            log.info("+--------------------+---------+");
         }
-        log.info("+--------------------+---------+");
+        else if (IpProperties.LogMode.SIMPLE.getValue().equals(ipProperties.getLogMode()))
+        {
+            log.warn("<--IP访问监控-Simple-->");
+            log.warn("+-----ip-address-----+");
+            for (String ip : ipCountMap.keySet())
+                log.info(String.format("|%18s  |", ip));
+            log.info("+--------------------+");
+        }
+
+        if (ipProperties.getResetFlag())
+        {
+            ipCountMap.clear();
+        }
     }
 
     public static void main(String[] args)
