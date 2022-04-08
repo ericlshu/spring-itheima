@@ -12,7 +12,7 @@
 
     <groupId>com.eric</groupId>
     <artifactId>ip-spring-boot-starter</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>ip-spring-boot-starter</name>
     <description>ip-spring-boot-starter</description>
 
