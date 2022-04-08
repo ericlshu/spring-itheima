@@ -29,5 +29,10 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+        <!--生成spring-configuration-metadata.json文件用于yml代码提示，发布时移除-->
+        <!--<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>-->
     </dependencies>
 </project>

@@ -1,0 +1,59 @@
+{
+  "groups": [
+    {
+      "name": "tools.ip",
+      "type": "com.eric.properties.IpProperties",
+      "sourceType": "com.eric.properties.IpProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "tools.ip.interval",
+      "type": "java.lang.Long",
+      "description": "日志显示周期，默认为10s",
+      "sourceType": "com.eric.properties.IpProperties",
+      "defaultValue": 10
+    },
+    {
+      "name": "tools.ip.log-mode",
+      "type": "java.lang.String",
+      "description": "日志输出模式，detail：详细模式 simple：极简模式",
+      "sourceType": "com.eric.properties.IpProperties"
+    },
+    {
+      "name": "tools.ip.reset-flag",
+      "type": "java.lang.Boolean",
+      "description": "是否周期内重置数据，默认不重置",
+      "sourceType": "com.eric.properties.IpProperties",
+      "defaultValue": false
+    }
+  ],
+  "hints": [
+    {
+      "name": "tools.ip.log-mode",
+      "values": [
+        {
+          "value": "detail",
+          "description": "详细模式"
+        },
+        {
+          "value": "simple",
+          "description": "极简模式"
+        }
+      ]
+    },
+    {
+      "name": "tools.ip.reset-flag",
+      "values": [
+        {
+          "value": true,
+          "description": "清空已保存记录"
+        },
+        {
+          "value": false,
+          "description": "不清空已保存记录"
+        }
+      ]
+    }
+  ]
+}

@@ -38,5 +38,5 @@ management:
 tools:
   ip:
     interval: 10
-#    reset-flag: true
     log-mode: detail
+    reset-flag: false
