@@ -1,0 +1,63 @@
+Day24StartProcessApplication[10]            -->> SpringApplication.run(Day24StartProcessApplication.class, args);
+    SpringApplication[1332]                 -->> return run(new Class<?>[] { primarySource }, args);
+        SpringApplication[1312]             -->> return new SpringApplication(primarySources).run(args);
+            # 加载各种配置信息，初始化各种配置对象
+            SpringApplication[1312]         -->> new SpringApplication(primarySources)
+                SpringApplication[241]      -->> this(null, primarySources);
+                    # 初始化资源加载器
+                    SpringApplication[256]  -->> this.resourceLoader = resourceLoader;
+                    # 初始化配置类的类名信息（格式转换）
+                    SpringApplication[258]  -->> this.primarySources = new LinkedHashSet<>(Arrays.asList(primarySources));
+                    # 确认当前容器加载的类型
+                    SpringApplication[259]  -->> this.webApplicationType = WebApplicationType.deduceFromClasspath();
+                    # 获取系统配置引导信息
+                    SpringApplication[260]  -->> this.bootstrapRegistryInitializers = new ArrayList<>(getSpringFactoriesInstances(BootstrapRegistryInitializer.class));
+                    # 获取ApplicationContextInitializer.class对应的实例
+                    SpringApplication[261]  -->> setInitializers((Collection) getSpringFactoriesInstances(ApplicationContextInitializer.class));
+                    # 初始化监听器，对初始化过程及运行过程进行干预
+                    SpringApplication[262]  -->> setListeners((Collection) getSpringFactoriesInstances(ApplicationListener.class));
+                    # 初始化了引导类类名信息，备用
+                    SpringApplication[263]  -->> this.mainApplicationClass = deduceMainApplicationClass();
+            # 初始化容器，得到ApplicationContext对象
+            SpringApplication[1312]         -->> new SpringApplication(primarySources).run(args)
+                # 记录开始时间
+                SpringApplication[289]      -->> long startTime = System.nanoTime();
+                # 系统引导信息对应的上下文对象
+                SpringApplication[290]      -->> DefaultBootstrapContext bootstrapContext = createBootstrapContext();
+                # 模拟输入输出信号，避免出现因缺少外设导致的信号传输失败，进而引发错误（模拟显示器，键盘，鼠标...）    java.awt.headless=true
+                SpringApplication[292]      -->> configureHeadlessProperty();
+                # 获取当前注册的所有可运行的监听器
+                SpringApplication[293]      -->> SpringApplicationRunListeners listeners = getRunListeners(args);
+                # 监听器执行正在启动操作步骤
+                SpringApplication[294]      -->> listeners.starting(bootstrapContext, this.mainApplicationClass);
+                # 获取运行参数
+                SpringApplication[296]      -->> ApplicationArguments applicationArguments = new DefaultApplicationArguments(args);
+                # 将前期读取的数据加载成了一个环境对象，用来描述信息
+                SpringApplication[297]      -->> ConfigurableEnvironment environment = prepareEnvironment(listeners, bootstrapContext, applicationArguments);
+                # 做了一个配置，备用
+                SpringApplication[298]      -->> configureIgnoreBeanInfo(environment);
+                # 初始化spring-boot banner
+                SpringApplication[299]      -->> Banner printedBanner = printBanner(environment);
+                # 创建容器对象，根据前期配置的容器类型进行判定并创建
+                SpringApplication[300]      -->> context = createApplicationContext();
+                # 设置启动模式
+                SpringApplication[301]      -->> context.setApplicationStartup(this.applicationStartup);
+                # 对容器进行设置，参数来源于前期的设定
+                SpringApplication[302]      -->> prepareContext(bootstrapContext, context, environment, listeners, applicationArguments, printedBanner);
+                # 刷新容器环境
+                SpringApplication[303]      -->> refreshContext(context);
+                # 刷新完毕后做后处理
+                SpringApplication[304]      -->> afterRefresh(context, applicationArguments);
+                # 记录启动完成用时
+                SpringApplication[305]      -->> Duration timeTakenToStartup = Duration.ofNanos(System.nanoTime() - startTime);
+                # 判定是否记录启动时间的日志
+                SpringApplication[306]      -->> if (this.logStartupInfo)
+                # 创建日志对象，输出日志信息，包含启动完成用时
+                SpringApplication[307]      -->>     new StartupInfoLogger(this.mainApplicationClass).logStarted(getApplicationLog(), timeTakenToStartup);
+                # 监听器执行启动完成操作步骤，并记录消耗时间
+                SpringApplication[309]      -->> listeners.started(context, timeTakenToStartup);
+                SpringApplication[310]      -->> callRunners(context, applicationArguments);
+                # 记录服务就绪用时
+                SpringApplication[317]      -->> Duration timeTakenToReady = Duration.ofNanos(System.nanoTime() - startTime);
+                # 监听器执行服务就绪操作步骤，并记录就绪用时
+                SpringApplication[318]      -->> listeners.ready(context, timeTakenToReady);
