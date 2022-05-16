@@ -1,0 +1,47 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    url: jdbc:mysql://120.26.107.127:3306/cloud_user?useSSL=false
+    username: eric
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-timeout: 10000
+      validation-timeout: 3000
+      idle-timeout: 60000
+      login-timeout: 5
+      max-lifetime: 60000
+      maximum-pool-size: 10
+      minimum-idle: 5
+      read-only: false
+#  application:
+#    #user服务的名称
+#    name: user-service
+#  cloud:
+#    nacos:
+#      server-addr: 120.26.107.127:8848
+#      discovery:
+#        cluster-name: HZ # 集群名称
+mybatis:
+  type-aliases-package: cn.itcast.user.pojo
+  configuration:
+    map-underscore-to-camel-case: true
+logging:
+  level:
+    cn.itcast: debug
+  pattern:
+    dateformat: MM-dd HH:mm:ss:SSS
+#eureka:
+#  client:
+#    service-url:
+#      # eureka的地址信息
+#      defaultZone: http://localhost:10086/eureka
+
+# 微服务会从nacos读取的配置文件：
+#   [服务名]-[spring.profile.active].yaml，环境配置
+#   [服务名].yaml，默认配置，多环境共享
+# 优先级：
+#   [服务名]-[环境].yaml >[服务名].yaml > 本地配置
+pattern:
+  parameter: 本地环境-local

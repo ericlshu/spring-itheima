@@ -1,0 +1,44 @@
+server:
+  port: 10010
+logging:
+  level:
+    cn.itcast: debug
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      server-addr: 120.26.107.127:8848
+    gateway:
+      routes:
+        - id: user-service        # 路由标识，必须唯一
+          uri: lb://user-service  # 路由的目标地址，可写ip端口号或服务名称，lb代表load balanced
+          predicates:             # 路由断言，判断请求是否符合规则
+            - Path=/user/**       # 路径断言，判断路径是否是以/user开头，如果是则符合规则
+            - Before=2031-04-13T15:14:47.433+08:00[Asia/Shanghai]
+          # filters:                # 过滤器
+          #  - AddRequestHeader=header,sudo apt-get money! # 添加请求头
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/order/**
+      default-filters:
+        - AddRequestHeader=header,sudo apt-get money! # 添加请求头
+        - AddRequestHeader=origin,gateway # 添加名为origin的请求头，值为gateway
+      # 全局的跨域处理
+      globalcors:
+        add-to-simple-url-handler-mapping: true # 解决options请求被拦截问题
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: # 允许哪些网站的跨域请求
+              - "http://localhost:8090"
+              - "http://www.leyou.com"
+            allowedMethods: # 允许的跨域ajax的请求方式
+              - "GET"
+              - "POST"
+              - "DELETE"
+              - "PUT"
+              - "OPTIONS"
+            allowedHeaders: "*"     # 允许在请求中携带的头信息
+            allowCredentials: true  # 是否允许携带cookie
+            maxAge: 360000          # 这次跨域检测的有效期

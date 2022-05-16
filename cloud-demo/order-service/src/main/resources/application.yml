@@ -1,0 +1,109 @@
+server:
+  port: 8088
+spring:
+  datasource:
+    url: jdbc:mysql://120.26.107.127:3306/cloud_order?useSSL=false
+    username: eric
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-timeout: 10000
+      validation-timeout: 3000
+      idle-timeout: 60000
+      login-timeout: 5
+      max-lifetime: 60000
+      maximum-pool-size: 10
+      minimum-idle: 5
+      read-only: false
+  cloud:
+    sentinel:
+      transport:
+        # sentinel控制台地址
+        dashboard: localhost:8080
+      # Sentinel默认会将Controller方法做context整合，导致链路模式的流控失效
+      web-context-unify: false
+      datasource:
+        flow:
+          nacos:
+            server-addr: 120.26.107.127:8848 # nacos地址
+            dataId: order-service-flow-rules
+            groupId: SENTINEL_GROUP
+            rule-type: flow # 还可以是：degrade、authority、param-flow
+#  application:
+#    #order服务的名称
+#    name: order-service
+#  cloud:
+#    nacos:
+#      server-addr: 120.26.107.127:8848
+#      discovery:
+#        cluster-name: HZ # 集群名称
+#        # 1. 每个namespace都有唯一id
+#        # 2. 服务设置namespace时要写id而不是名称
+#        # 3. 不同namespace下的服务互相不可见
+#        # namespace: fbd5aa47-b211-4442-bb3e-9a44f89a22cb
+#        # 临时实例宕机时，会从nacos的服务列表中剔除，而非临时实例则不会
+#        ephemeral: false #设置为非临时实例
+mybatis:
+  type-aliases-package: cn.itcast.user.pojo
+  configuration:
+    map-underscore-to-camel-case: true
+logging:
+  level:
+    cn.itcast: debug
+  pattern:
+    dateformat: MM-dd HH:mm:ss:SSS
+#eureka:
+#  client:
+#    service-url:
+#      # eureka的地址信息
+#      defaultZone: http://localhost:10086/eureka
+user-service:
+  ribbon:
+    # 配置当前模块中仅user-service采用随机模式负载均衡规则
+    # NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+    NFLoadBalancerRuleClassName: com.alibaba.cloud.nacos.ribbon.NacosRule # 负载均衡规则
+ribbon:
+  eager-load:
+    enabled: true         # 开启饥饿加载
+    clients: user-service # 指定对user-service这个服务饥饿加载
+
+#  mysql> show variables like '%timeout%';
+#  +-----------------------------------+----------+
+#  | Variable_name                     | Value    |
+#  +-----------------------------------+----------+
+#  | connect_timeout                   | 10       |
+#  | delayed_insert_timeout            | 300      |
+#  | have_statement_timeout            | YES      |
+#  | innodb_flush_log_at_timeout       | 1        |
+#  | innodb_lock_wait_timeout          | 50       |
+#  | innodb_rollback_on_timeout        | OFF      |
+#  | interactive_timeout               | 28800    |
+#  | lock_wait_timeout                 | 31536000 |
+#  | mysqlx_connect_timeout            | 30       |
+#  | mysqlx_idle_worker_thread_timeout | 60       |
+#  | mysqlx_interactive_timeout        | 28800    |
+#  | mysqlx_port_open_timeout          | 0        |
+#  | mysqlx_read_timeout               | 30       |
+#  | mysqlx_wait_timeout               | 28800    |
+#  | mysqlx_write_timeout              | 60       |
+#  | net_read_timeout                  | 30       |
+#  | net_write_timeout                 | 60       |
+#  | rpl_stop_slave_timeout            | 31536000 |
+#  | slave_net_timeout                 | 60       |
+#  | wait_timeout                      | 28800    |
+#  +-----------------------------------+----------+
+#  20 rows in set (0.00 sec)
+
+feign:
+  client:
+    config:
+      default: # 这里用default就是全局配置
+        # user-service: # 这里用服务名称，则是针对某个微服务的配置
+        loggerLevel: BASIC
+  httpclient: # 使用HttpClient或OKHttp代替URLConnection
+    enabled: true     # 开启feign对HttpClient的支持
+    max-connections: 200          # 最大的连接数
+    max-connections-per-route: 50 # 每个路径的最大连接数
+  sentinel:
+    # 步骤零：开启Feign的Sentinel功能
+    enabled: true
