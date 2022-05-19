@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--scope：为bean设置作用范围，可选值为单例singleton，非单例prototype-->
+    <bean id="bookDao" class="com.eric.dao.impl.BookDaoImpl" scope="prototype"/>
+
+    <!--name:为bean指定别名，别名可以有多个，使用逗号，分号，空格进行分隔-->
+    <!--说明:Ebi全称Enterprise Business Interface，翻译为企业业务接口-->
+    <bean id="bookService" name="service bookEbi" class="com.eric.service.impl.BookServiceImpl">
+        <property name="bookDao" ref="bookDao"/>
+    </bean>
+
+</beans>
