@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="bookDao" class="com.eric.dao.impl.BookDaoImpl"/>
+
+    <!--autowire属性：开启自动装配，通常使用按类型装配-->
+
+    <!--* 需要注入属性的类中对应属性的setter方法不能省略-->
+    <!--* 被注入的对象必须要被Spring的IOC容器管理-->
+    <!--* 按照类型在Spring的IOC容器中如果找到多个对象，会报NoUniqueBeanDefinitionException-->
+    <bean id="bookService1" class="com.eric.service.impl.BookServiceImpl" autowire="byType"/>
+
+    <!--* bookDao是private修饰的，外部类无法直接方法-->
+    <!--* 外部类只能通过属性的set方法进行访问-->
+    <!--* 对外部类来说，setBookDao方法名，去掉set后首字母小写是其属性名-->
+    <!--* 为什么是去掉set首字母小写?-->
+    <!--* 这个规则是set方法生成的默认规则，set方法的生成是把属性名首字母大写前面加set形成的方法名-->
+    <!--* 所以按照名称注入，其实是和对应的set方法有关，但是如果按照标准起名称，属性名和set对应的名是一致的-->
+    <bean id="bookService2" class="com.eric.service.impl.BookServiceImpl" autowire="byName"/>
+
+    <!--<property name="bookDao" ref="bookDao"/>-->
+
+</beans>
