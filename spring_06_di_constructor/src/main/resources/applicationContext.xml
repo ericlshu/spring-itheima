@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="bookDao" class="com.eric.dao.impl.BookDaoImpl">
+        <!--0.按参数名称进行注入-->
+        <!--<constructor-arg name="connectionNum" value="10"/>
+        <constructor-arg name="databaseName" value="MySQL"/>-->
+
+        <!--当构造函数中方法的参数名发生变化后，配置文件中的name属性也需要跟着变-->
+
+        <!--方式一:删除name属性，添加type属性，按照类型注入-->
+        <!--<constructor-arg type="int" value="666"/>
+        <constructor-arg type="java.lang.String" value="DB2"/>-->
+
+        <!--方式二:删除type属性，添加index属性，按照索引下标注入，下标从0开始-->
+        <constructor-arg index="1" value="999"/>
+        <constructor-arg index="0" value="Oracle"/>
+    </bean>
+    <bean id="userDao" class="com.eric.dao.impl.UserDaoImpl"/>
+
+    <bean id="bookService" class="com.eric.service.impl.BookServiceImpl">
+        <!--<property name="bookDao" ref="bookDao"/>-->
+        <constructor-arg name="bookDao" ref="bookDao"/>
+        <constructor-arg name="userDao" ref="userDao"/>
+    </bean>
+
+</beans>
