@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation=
+               "http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--system-properties-mode:设置为NEVER,表示不加载系统属性-->
+    <context:property-placeholder location="jdbc.properties,jdbc2.properties" system-properties-mode="NEVER"/>
+
+    <bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="url" value="jdbc:mysql://192.168.3.33:3306/spring"/>
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="username" value="eric"/>
+        <property name="password" value="1234"/>
+    </bean>
+
+    <bean id="comboPooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <bean id="bookDao" class="com.eric.dao.impl.BookDaoImpl">
+        <property name="name" value="${username}"/>
+    </bean>
+
+    <!--方式一:可以实现，如果配置文件多的话，每个都需要配置-->
+    <context:property-placeholder location="jdbc.properties,jdbc2.properties" system-properties-mode="NEVER"/>
+    <!--方式二:`*.properties`代表所有以properties结尾的文件都会被加载，可以解决方式一的问题，但是不标准-->
+    <context:property-placeholder location="*.properties" system-properties-mode="NEVER"/>
+    <!--方式三:标准的写法，`classpath:`代表的是从根路径下开始查找，但是只能查询当前项目的根路径-->
+    <context:property-placeholder location="classpath:*.properties" system-properties-mode="NEVER"/>
+    <!--方式四:不仅可以加载当前项目还可以加载当前项目所依赖的所有项目的根路径下的properties配置文件-->
+    <context:property-placeholder location="classpath*:*.properties" system-properties-mode="NEVER"/>
+
+</beans>
