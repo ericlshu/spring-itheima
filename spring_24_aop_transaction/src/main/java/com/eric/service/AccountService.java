@@ -2,8 +2,6 @@ package com.eric.service;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
-
 public interface AccountService
 {
     /**
@@ -13,6 +11,7 @@ public interface AccountService
      * @param in    转入方
      * @param money 金额
      */
-    @Transactional(rollbackFor = IOException.class)
-    void transfer(String out, String in, Double money) throws IOException;
+    // @Transactional(rollbackFor = IOException.class)
+    @Transactional
+    void transfer(String out, String in, Double money);
 }

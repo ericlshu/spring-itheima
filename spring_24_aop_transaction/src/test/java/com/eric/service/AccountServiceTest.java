@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.io.IOException;
-
 /**
  * Description : AOP事务管理及配置
  * <p>
@@ -34,6 +32,19 @@ import java.io.IOException;
  * --->>> READ_COMMITTED   : 读已提交
  * --->>> REPEATABLE_READ  : 重复读取
  * --->>> SERIALIZABLE     : 串行化
+ * -->> Mysql  默认:可重复读
+ * -->> Oracle 默认:读已提交
+ * <p>
+ * 事务的传播行为
+ * -->> 保证同一个事务中
+ * --->>>PORPAGATION_REQUIRED       : 支持当前事务，如果不存在 就新建一个(默认)
+ * --->>>PROPAGATION_SUPPORTS       : 支持当前事务，如果不存在，就不使用事务
+ * --->>>PROPAGATION_MANDATORY      : 支持当前事务，如果不存在，抛出异常
+ * -->> 保证没有在同一个事务中
+ * --->>>PROPAGATION_REQUIRES_NEW   : 如果有事务存在，挂起当前事务，创建一个新的事务
+ * --->>>PROPAGATION_NOT_SUPPORTED  : 以非事务方式运行，如果有事务存在，挂起当前事务
+ * --->>>PROPAGATION_NEVER          : 以非事务方式运行，如果有事务存在，抛出异常
+ * --->>>PROPAGATION_NESTED         : 如果当前事务存在，则嵌套事务执行
  *
  * @author Eric SHU
  */
@@ -45,8 +56,8 @@ public class AccountServiceTest
     private AccountService accountService;
 
     @Test
-    public void testTransfer() throws IOException
+    public void testTransfer()
     {
-        accountService.transfer("Tom", "Jerry", 100D);
+        accountService.transfer("Tom", "Jerry", 50D);
     }
 }
