@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!--* 第一行读取外部properties配置文件，Spring有提供具体的解决方案`@PropertySource`,需要交给Spring-->
+    <!--* 第二行起别名包扫描，为SqlSessionFactory服务的，需要交给Spring-->
+    <!--* 第三行主要用于做连接池，Spring之前我们已经整合了Druid连接池，这块也需要交给Spring-->
+    <!--* 前面三行一起都是为了创建SqlSession对象用的，那么用Spring管理SqlSession对象吗?回忆下SqlSession是由SqlSessionFactory创建出来的，所以只需要将SqlSessionFactory交给Spring管理即可。-->
+    <!--* 第四行是Mapper接口和映射文件[如果使用注解就没有该映射文件]，这个是在获取到SqlSession以后执行具体操作的时候用，所以它和SqlSessionFactory创建的时机都不在同一个时间，可能需要单独管理。-->
+
+    <properties resource="jdbc.properties"/>
+    <typeAliases>
+        <package name="com.eric.domain"/>
+    </typeAliases>
+    <environments default="mysql">
+        <environment id="mysql">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <package name="com.eric.dao"/>
+    </mappers>
+</configuration>
