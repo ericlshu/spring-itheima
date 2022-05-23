@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  * @author Eric SHU
  */
 @Configuration
-@ComponentScan("com.eric.controller")
+@ComponentScan({"com.eric.controller","com.eric.config"})
 @EnableWebMvc
 public class SpringMVCConfig
 {
