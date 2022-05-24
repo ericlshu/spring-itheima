@@ -15,32 +15,42 @@ public class BookController
     private BookService bookService;
 
     @PostMapping
-    public boolean save(@RequestBody Book book)
+    public Result save(@RequestBody Book book)
     {
-        return bookService.save(book);
+        boolean save = bookService.save(book);
+        return new Result(save ? Code.SAVE_OK : Code.SAVE_ERR, save);
     }
 
     @PutMapping
-    public boolean update(@RequestBody Book book)
+    public Result update(@RequestBody Book book)
     {
-        return bookService.update(book);
+        boolean update = bookService.update(book);
+        return new Result(update ? Code.UPDATE_OK : Code.UPDATE_ERR, update);
     }
 
     @DeleteMapping("/{id}")
-    public boolean delete(@PathVariable Integer id)
+    public Result delete(@PathVariable Integer id)
     {
-        return bookService.delete(id);
+        boolean delete = bookService.delete(id);
+
+        return new Result(delete ? Code.DELETE_OK : Code.DELETE_ERR, delete);
     }
 
     @GetMapping("/{id}")
-    public Book getById(@PathVariable Integer id)
+    public Result getById(@PathVariable Integer id)
     {
-        return bookService.getById(id);
+        Book book = bookService.getById(id);
+        int code = (book != null) ? Code.GET_OK : Code.GET_ERR;
+        String msg = (book != null) ? "" : "查询失败，请重试！";
+        return new Result(code, book, msg);
     }
 
     @GetMapping
-    public List<Book> getAll()
+    public Result getAll()
     {
-        return bookService.getAll();
+        List<Book> bookList = bookService.getAll();
+        int code = (bookList == null || bookList.isEmpty()) ? Code.GET_ERR : Code.GET_OK;
+        String msg = (bookList == null || bookList.isEmpty()) ? "查询失败，请重试！" : "";
+        return new Result(code, bookList, msg);
     }
 }
