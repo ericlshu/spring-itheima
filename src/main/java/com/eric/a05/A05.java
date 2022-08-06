@@ -1,8 +1,6 @@
 package com.eric.a05;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mybatis.spring.mapper.MapperScannerConfigurer;
-import org.springframework.context.annotation.ConfigurationClassPostProcessor;
 import org.springframework.context.support.GenericApplicationContext;
 
 import java.io.IOException;
@@ -22,12 +20,48 @@ public class A05
         context.registerBean("config", Config.class);
 
         // 解析 @ComponentScan @Bean @Import @ImportResource 注解
-        context.registerBean(ConfigurationClassPostProcessor.class);
+        // context.registerBean(ConfigurationClassPostProcessor.class);
         // 解析 @MapperScanner 扫描mapper接口
-        context.registerBean(MapperScannerConfigurer.class, beanDefinition ->
-                beanDefinition.getPropertyValues().add("basePackage", "com.eric.a05.mapper")
-        );
+        // context.registerBean(MapperScannerConfigurer.class, beanDefinition ->
+        //         beanDefinition.getPropertyValues().add("basePackage", "com.eric.a05.mapper")
+        // );
 
+        // ComponentScan componentScan = AnnotationUtils.findAnnotation(Config.class, ComponentScan.class);
+        // if (componentScan != null)
+        // {
+        //     for (String basePackage : componentScan.basePackages())
+        //     {
+        //         log.debug("basePackage  : {}", basePackage);
+        //         String resourcePath = "classpath*:" + basePackage.replace(".", "/") + "/**/*.class";
+        //         log.debug("resourcePath : {}", resourcePath);
+        //         CachingMetadataReaderFactory factory = new CachingMetadataReaderFactory();
+        //         Resource[] resources = context.getResources(resourcePath);
+        //         BeanNameGenerator generator = new AnnotationBeanNameGenerator();
+        //         for (Resource resource : resources)
+        //         {
+        //             log.info("resource : {}", resource);
+        //             MetadataReader reader = factory.getMetadataReader(resource);
+        //             String className = reader.getClassMetadata().getClassName();
+        //             log.debug("-->> className : {}", className);
+        //             AnnotationMetadata metadata = reader.getAnnotationMetadata();
+        //             boolean hasAnnotation = metadata.hasAnnotation(Component.class.getName());
+        //             log.debug("-->> hasAnnotation : {}", hasAnnotation);
+        //             boolean hasMetaAnnotation = metadata.hasMetaAnnotation(Component.class.getName());
+        //             log.debug("-->> hasMetaAnnotation : {}", hasMetaAnnotation);
+        //             if (hasAnnotation || hasMetaAnnotation)
+        //             {
+        //                 DefaultListableBeanFactory beanFactory = context.getDefaultListableBeanFactory();
+        //                 AbstractBeanDefinition beanDefinition =
+        //                         BeanDefinitionBuilder.genericBeanDefinition(className).getBeanDefinition();
+        //                 String beanName = generator.generateBeanName(beanDefinition, beanFactory);
+        //                 beanFactory.registerBeanDefinition(beanName, beanDefinition);
+        //             }
+        //         }
+        //     }
+        // }
+
+        // 使用自定义bean后处理器解析 @ComponentScan
+        context.registerBean(ComponentScanPostProcessor.class);
 
         // ⬇️初始化容器
         context.refresh();
