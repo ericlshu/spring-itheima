@@ -1,4 +1,4 @@
-package a01;
+package com.eric.a01;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.GenericApplicationContext;
