@@ -16,6 +16,9 @@ import java.util.Map;
 
 /**
  * BeanFactory 与 ApplicationContext 的区别
+ * -> a. BeanFactory 与 ApplicationContext 并不仅仅是简单接口继承的关系, ApplicationContext 组合并扩展了 BeanFactory 的功能
+ * -> b. 又新学一种代码之间解耦途径
+ * 练习：完成用户注册与发送短信之间的解耦, 用事件方式、和 AOP 方式分别实现
  */
 @SpringBootApplication
 public class A01
@@ -65,11 +68,6 @@ public class A01
         // context.publishEvent(new UserRegisteredEvent(context));
         context.getBean(Component1.class).register();
 
-        /*
-         * 4. 学到了什么
-         * -> a. BeanFactory 与 ApplicationContext 并不仅仅是简单接口继承的关系, ApplicationContext 组合并扩展了 BeanFactory 的功能
-         * -> b. 又新学一种代码之间解耦途径
-         * 练习：完成用户注册与发送短信之间的解耦, 用事件方式、和 AOP 方式分别实现
-         */
+
     }
 }
