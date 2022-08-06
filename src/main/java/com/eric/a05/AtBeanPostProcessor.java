@@ -2,7 +2,6 @@ package com.eric.a05;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.*;
 import org.springframework.context.annotation.Bean;
@@ -16,10 +15,15 @@ import java.util.Objects;
 import java.util.Set;
 
 @Slf4j
-public class AtBeanPostProcessor implements BeanFactoryPostProcessor
+public class AtBeanPostProcessor implements BeanDefinitionRegistryPostProcessor
 {
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException
+    {
+    }
+
+    @Override
+    public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanFactory) throws BeansException
     {
         try
         {
@@ -35,16 +39,15 @@ public class AtBeanPostProcessor implements BeanFactoryPostProcessor
                         .setFactoryMethodOnBean(methodName, "config")
                         .setAutowireMode(AbstractBeanDefinition.AUTOWIRE_CONSTRUCTOR);
 
-                AbstractBeanDefinition beanDefinition = builder.getBeanDefinition();
-
                 String initMethodName = Objects.requireNonNull(
                         method.getAnnotationAttributes(Bean.class.getName())).get("initMethod").toString();
                 if (initMethodName != null && initMethodName.length() > 0)
-                    // 执行bean的init方法创建数据源对象
-                    beanDefinition.setInitMethodName(initMethodName);
+                {// 执行bean的init方法创建数据源对象
+                    builder.setInitMethodName(initMethodName);
+                }
 
-                if (configurableListableBeanFactory instanceof DefaultListableBeanFactory beanFactory)
-                    beanFactory.registerBeanDefinition(methodName, beanDefinition);
+                AbstractBeanDefinition beanDefinition = builder.getBeanDefinition();
+                beanFactory.registerBeanDefinition(methodName, beanDefinition);
             }
         }
         catch (IOException e)

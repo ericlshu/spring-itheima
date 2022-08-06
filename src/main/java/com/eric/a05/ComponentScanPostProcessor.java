@@ -2,7 +2,6 @@ package com.eric.a05;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.*;
 import org.springframework.context.annotation.AnnotationBeanNameGenerator;
@@ -18,10 +17,15 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Slf4j
-public class ComponentScanPostProcessor implements BeanFactoryPostProcessor
+public class ComponentScanPostProcessor implements BeanDefinitionRegistryPostProcessor
 {
     @Override // context.refresh执行时调用该方法
     public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException
+    {
+    }
+
+    @Override
+    public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry beanFactory) throws BeansException
     {
         try
         {
@@ -53,11 +57,8 @@ public class ComponentScanPostProcessor implements BeanFactoryPostProcessor
                             AbstractBeanDefinition beanDefinition =
                                     BeanDefinitionBuilder.genericBeanDefinition(className).getBeanDefinition();
                             // DefaultListableBeanFactory beanFactory = context.getDefaultListableBeanFactory();
-                            if (configurableListableBeanFactory instanceof DefaultListableBeanFactory beanFactory)
-                            {
-                                String beanName = generator.generateBeanName(beanDefinition, beanFactory);
-                                beanFactory.registerBeanDefinition(beanName, beanDefinition);
-                            }
+                            String beanName = generator.generateBeanName(beanDefinition, beanFactory);
+                            beanFactory.registerBeanDefinition(beanName, beanDefinition);
                         }
                     }
                 }

@@ -61,7 +61,7 @@ public class A05
         // }
 
         // 使用自定义bean后处理器解析 @ComponentScan
-        // context.registerBean(ComponentScanPostProcessor.class);
+        context.registerBean(ComponentScanPostProcessor.class);
 
         // CachingMetadataReaderFactory factory = new CachingMetadataReaderFactory();
         // MetadataReader reader = factory.getMetadataReader(new ClassPathResource("com/eric/a05/Config.class"));
@@ -86,8 +86,11 @@ public class A05
         //     context.getDefaultListableBeanFactory().registerBeanDefinition(methodName, beanDefinition);
         // }
 
-        // 使用自定义bean后处理器解析 @Bean
+        // 使用自定义BeanFactory后处理器解析 @Bean
         context.registerBean(AtBeanPostProcessor.class);
+
+        // 使用自定义BeanFactory后处理器解析 Mapper接口
+        context.registerBean(MapperPostProcessor.class);
 
         // ⬇️初始化容器
         context.refresh();

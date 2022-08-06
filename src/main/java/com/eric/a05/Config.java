@@ -43,14 +43,16 @@ public class Config
     }
 
     /*@Bean
-    public MapperFactoryBean<Mapper1> mapper1(SqlSessionFactory sqlSessionFactory) {
+    public MapperFactoryBean<Mapper1> mapper1(SqlSessionFactory sqlSessionFactory)
+    {
         MapperFactoryBean<Mapper1> factory = new MapperFactoryBean<>(Mapper1.class);
         factory.setSqlSessionFactory(sqlSessionFactory);
         return factory;
     }
 
     @Bean
-    public MapperFactoryBean<Mapper2> mapper2(SqlSessionFactory sqlSessionFactory) {
+    public MapperFactoryBean<Mapper2> mapper2(SqlSessionFactory sqlSessionFactory)
+    {
         MapperFactoryBean<Mapper2> factory = new MapperFactoryBean<>(Mapper2.class);
         factory.setSqlSessionFactory(sqlSessionFactory);
         return factory;
