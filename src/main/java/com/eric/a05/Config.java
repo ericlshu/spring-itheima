@@ -1,6 +1,7 @@
 package com.eric.a05;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.eric.a05.component.Bean2;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,6 +17,11 @@ public class Config
     public Bean1 bean1()
     {
         return new Bean1();
+    }
+
+    public Bean2 bean2()
+    {
+        return new Bean2();
     }
 
     @Bean

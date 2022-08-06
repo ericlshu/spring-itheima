@@ -61,7 +61,33 @@ public class A05
         // }
 
         // 使用自定义bean后处理器解析 @ComponentScan
-        context.registerBean(ComponentScanPostProcessor.class);
+        // context.registerBean(ComponentScanPostProcessor.class);
+
+        // CachingMetadataReaderFactory factory = new CachingMetadataReaderFactory();
+        // MetadataReader reader = factory.getMetadataReader(new ClassPathResource("com/eric/a05/Config.class"));
+        // Set<MethodMetadata> methods = reader.getAnnotationMetadata().getAnnotatedMethods(Bean.class.getName());
+        // for (MethodMetadata method : methods)
+        // {
+        //     log.info("method : {}", method);
+        //     String methodName = method.getMethodName();
+        //
+        //     BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition()
+        //             .setFactoryMethodOnBean(methodName, "config") // Config类相当于Bean工厂
+        //             .setAutowireMode(AbstractBeanDefinition.AUTOWIRE_CONSTRUCTOR); // 指定自动装配模式，解析工厂方法参数
+        //
+        //     AbstractBeanDefinition beanDefinition = builder.getBeanDefinition();
+        //
+        //     String initMethodName = Objects.requireNonNull(
+        //             method.getAnnotationAttributes(Bean.class.getName())).get("initMethod").toString();
+        //     if (initMethodName != null && initMethodName.length() > 0)
+        //         // 执行bean的init方法创建数据源对象
+        //         beanDefinition.setInitMethodName(initMethodName);
+        //
+        //     context.getDefaultListableBeanFactory().registerBeanDefinition(methodName, beanDefinition);
+        // }
+
+        // 使用自定义bean后处理器解析 @Bean
+        context.registerBean(AtBeanPostProcessor.class);
 
         // ⬇️初始化容器
         context.refresh();
