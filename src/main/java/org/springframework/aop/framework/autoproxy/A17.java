@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ConfigurationClassPostProcessor;
 import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.core.annotation.Order;
 
 import java.util.List;
 
@@ -86,15 +87,24 @@ public class A17
 
     /**
      * 高级切面类
+     * -> 高级切面的顺序控制@Order(int)要加载类上，用于控制和其他切面类的相对顺序，加在方法上无法生效；
      */
     @Aspect
-    // @Order(1)
+    @Order(1)
     static class Aspect1
     {
         @Before("execution(* foo())")
-        public void before()
+        // @Order(2)
+        public void before1()
         {
-            log.info("aspect1 before...");
+            log.info("aspect1 before1...");
+        }
+
+        @Before("execution(* foo())")
+        // @Order(1)
+        public void before2()
+        {
+            log.info("aspect1 before2...");
         }
 
         @After("execution(* foo())")
@@ -106,16 +116,20 @@ public class A17
 
     /**
      * 低级切面
+     * 低级切面的执行顺序用advisor.setOrder(int)控制；加在@Bean同级不生效；
      */
     @Configuration
     static class Config
     {
         @Bean
+        // @Order(1)
         public Advisor advisor3(MethodInterceptor advice3)
         {
             AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
             pointcut.setExpression("execution(* foo())");
-            return new DefaultPointcutAdvisor(pointcut, advice3);
+            DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(pointcut, advice3);
+            advisor.setOrder(2);
+            return advisor;
         }
 
         @Bean
