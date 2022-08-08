@@ -18,6 +18,10 @@
         <appender-ref ref="STDOUT"/>
     </logger>
 
+    <logger name="org.springframework.aop.framework" level="debug" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
     <logger name="org.springframework.web.servlet.resource" level="info" additivity="false">
         <appender-ref ref="STDOUT"/>
     </logger>
