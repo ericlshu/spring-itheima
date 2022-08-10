@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 @Configuration
 @ComponentScan
@@ -48,5 +49,16 @@ public class WebConfig
         // 也可以使用以下方式加载配置文件中的对应配置属性，避免在代码中hard code
         registrationBean.setLoadOnStartup(webMvcProperties.getServlet().getLoadOnStartup());
         return registrationBean;
+    }
+
+    /**
+     * 如果用 DispatcherServlet 初始化时默认添加的组件, requestMappingHandlerMapping 作为 DispatcherServlet 的成员变量存在，
+     * 并不会作为 bean, 给测试带来困扰，所以选择手动创建并加入spring容器，容器中存在则不会再加载默认值作为 DispatcherServlet 的属性
+     * ⬅️1. 加入RequestMappingHandlerMapping
+     */
+    @Bean
+    public RequestMappingHandlerMapping requestMappingHandlerMapping()
+    {
+        return new RequestMappingHandlerMapping();
     }
 }
