@@ -11,6 +11,7 @@ import org.springframework.web.servlet.HandlerExecutionChain;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Objects;
 
@@ -42,7 +43,7 @@ public class A20
         handlerMethods.forEach((key, value) -> log.info(key + " = " + value));
 
         // 请求来了，获取控制器方法  返回处理器执行链对象
-        MockHttpServletRequest request = new MockHttpServletRequest("PUT", "/test3");
+        MockHttpServletRequest request = new MockHttpServletRequest("GET", "/test4");
         request.setParameter("name", "张三");
         request.addHeader("token", "某个令牌");
         HandlerExecutionChain chain = handlerMapping.getHandler(request);
@@ -55,6 +56,10 @@ public class A20
         MyRequestMappingHandlerAdapter handlerAdapter = context.getBean(MyRequestMappingHandlerAdapter.class);
         assert chain != null;
         handlerAdapter.invokeHandlerMethod(request, response, (HandlerMethod) chain.getHandler());
+
+        // 解析并检查响应
+        byte[] content = response.getContentAsByteArray();
+        log.info("content : {}", new String(content, StandardCharsets.UTF_8));
 
         log.warn(">>>>>>>>>>>>>>>>>>>> 所有参数解析器 <<<<<<<<<<<<<<<<<<<<");
         for (HandlerMethodArgumentResolver resolver : Objects.requireNonNull(handlerAdapter.getArgumentResolvers()))

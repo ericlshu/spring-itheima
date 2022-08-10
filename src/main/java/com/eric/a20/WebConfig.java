@@ -72,6 +72,7 @@ public class WebConfig
     {
         MyRequestMappingHandlerAdapter handlerAdapter = new MyRequestMappingHandlerAdapter();
         handlerAdapter.setCustomArgumentResolvers(List.of(new TokenArgumentResolver()));
+        handlerAdapter.setCustomReturnValueHandlers(List.of(new YmlReturnValueHandler()));
         return handlerAdapter;
     }
 }

@@ -1,5 +1,7 @@
 package com.eric.a20;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +13,7 @@ import org.yaml.snakeyaml.Yaml;
 public class Controller1
 {
     @GetMapping("/test1")
-    public ModelAndView test1() throws Exception
+    public ModelAndView test1()
     {
         log.debug("test1()");
         return null;
@@ -40,36 +42,12 @@ public class Controller1
         return new User("张三", 18);
     }
 
+    @Data
+    @AllArgsConstructor
     public static class User
     {
         private String name;
         private int age;
-
-        public User(String name, int age)
-        {
-            this.name = name;
-            this.age = age;
-        }
-
-        public String getName()
-        {
-            return name;
-        }
-
-        public int getAge()
-        {
-            return age;
-        }
-
-        public void setName(String name)
-        {
-            this.name = name;
-        }
-
-        public void setAge(int age)
-        {
-            this.age = age;
-        }
     }
 
     public static void main(String[] args)
