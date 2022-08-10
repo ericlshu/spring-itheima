@@ -12,6 +12,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
+import java.util.List;
+
 @Configuration
 @ComponentScan
 @PropertySource("classpath:application.properties")
@@ -68,6 +70,8 @@ public class WebConfig
     @Bean
     public MyRequestMappingHandlerAdapter requestMappingHandlerAdapter()
     {
-        return new MyRequestMappingHandlerAdapter();
+        MyRequestMappingHandlerAdapter handlerAdapter = new MyRequestMappingHandlerAdapter();
+        handlerAdapter.setCustomArgumentResolvers(List.of(new TokenArgumentResolver()));
+        return handlerAdapter;
     }
 }

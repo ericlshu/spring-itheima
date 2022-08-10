@@ -42,8 +42,9 @@ public class A20
         handlerMethods.forEach((key, value) -> log.info(key + " = " + value));
 
         // 请求来了，获取控制器方法  返回处理器执行链对象
-        MockHttpServletRequest request = new MockHttpServletRequest("POST", "/test2");
+        MockHttpServletRequest request = new MockHttpServletRequest("PUT", "/test3");
         request.setParameter("name", "张三");
+        request.addHeader("token", "某个令牌");
         HandlerExecutionChain chain = handlerMapping.getHandler(request);
         log.info("chain : {}", chain);
 
