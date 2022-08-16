@@ -55,198 +55,60 @@ public class A27
 {
     public static void main(String[] args) throws Exception
     {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(WebConfig.class);
-
         // test1() -> ModelAndViewMethodReturnValueHandler        -> 测试返回值类型为 ModelAndView
         // test2() -> ViewNameMethodReturnValueHandler            -> 测试返回值类型为 String 时, 把它当做视图名
         // test3() -> ServletModelAttributeMethodProcessor(false) -> 测试返回值添加了 @ModelAttribute 注解时, 此时需找到默认视图名
-        // test4() -> ServletModelAttributeMethodProcessor(true)  -> 测试返回值不加 @ModelAttribute 注解且返回非简单类型时, 此时需找到默认视图名
+        // test4() -> ServletModelAttributeMethodProcessor(true)  -> 测试返回值未添加 @ModelAttribute 注解且返回非简单类型时, 此时需找到默认视图名
         // test5() -> HttpEntityMethodProcessor                   -> 测试返回值类型为 ResponseEntity 时, 此时不走视图流程
         // test6() -> HttpHeadersReturnValueHandler               -> 测试返回值类型为 HttpHeaders 时, 此时不走视图流程
         // test7() -> RequestResponseBodyMethodProcessor          -> 测试返回值添加了 @ResponseBody 注解时, 此时不走视图流程
-        test7(context);
+
+        for (int i = 1; i <= 7; i++)
+        {
+            test("test" + i);
+            log.warn("<=================================================================>");
+        }
     }
 
-    private static void test7(AnnotationConfigApplicationContext context) throws Exception
+    private static void test(String methodName) throws Exception
     {
-        Method method = Controller.class.getMethod("test7");
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(WebConfig.class);
+
+        Method method = Controller.class.getMethod(methodName);
         Controller controller = new Controller();
-        Object returnValue = method.invoke(controller); // 获取返回值
-
+        Object returnValue = method.invoke(controller);
         HandlerMethod methodHandle = new HandlerMethod(controller, method);
-
-        ModelAndViewContainer container = new ModelAndViewContainer();
         HandlerMethodReturnValueHandlerComposite composite = getReturnValueHandler();
+
         MockHttpServletRequest request = new MockHttpServletRequest();
+        if ("test3".equals(methodName) || "test4".equals(methodName))
+        {
+            request.setRequestURI("/" + methodName);
+            UrlPathHelper.defaultInstance.resolveAndCacheLookupPath(request);
+        }
         MockHttpServletResponse response = new MockHttpServletResponse();
         ServletWebRequest webRequest = new ServletWebRequest(request, response);
+
+        // 检查是否支持此类型的返回值
         if (composite.supportsReturnType(methodHandle.getReturnType()))
-        { // 检查是否支持此类型的返回值
+        {
+            ModelAndViewContainer container = new ModelAndViewContainer();
             composite.handleReturnValue(returnValue, methodHandle.getReturnType(), container, webRequest);
-            log.info(String.valueOf(container.getModel()));
-            log.info(container.getViewName());
+            log.info("Model name : {}", container.getModel());
+            log.info("View  name : {}", container.getViewName());
+
             if (!container.isRequestHandled())
             {
-                renderView(context, container, webRequest); // 渲染视图
+                renderView(context, container, webRequest);
             }
             else
             {
-                for (String name : response.getHeaderNames())
+                for (String headerName : response.getHeaderNames())
                 {
-                    log.info(name + "=" + response.getHeader(name));
+                    log.info("Response Header  : {}", headerName + "=" + response.getHeader(headerName));
                 }
-                log.info(new String(response.getContentAsByteArray(), StandardCharsets.UTF_8));
+                log.info("Response Content : {}", new String(response.getContentAsByteArray(), StandardCharsets.UTF_8));
             }
-        }
-    }
-
-    private static void test6(AnnotationConfigApplicationContext context) throws Exception
-    {
-        Method method = Controller.class.getMethod("test6");
-        Controller controller = new Controller();
-        Object returnValue = method.invoke(controller); // 获取返回值
-
-        HandlerMethod methodHandle = new HandlerMethod(controller, method);
-
-        ModelAndViewContainer container = new ModelAndViewContainer();
-        HandlerMethodReturnValueHandlerComposite composite = getReturnValueHandler();
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        ServletWebRequest webRequest = new ServletWebRequest(request, response);
-        if (composite.supportsReturnType(methodHandle.getReturnType()))
-        { // 检查是否支持此类型的返回值
-            composite.handleReturnValue(returnValue, methodHandle.getReturnType(), container, webRequest);
-            log.info(String.valueOf(container.getModel()));
-            log.info(container.getViewName());
-            if (!container.isRequestHandled())
-            {
-                renderView(context, container, webRequest); // 渲染视图
-            }
-            else
-            {
-                for (String name : response.getHeaderNames())
-                {
-                    log.info(name + "=" + response.getHeader(name));
-                }
-                log.info(new String(response.getContentAsByteArray(), StandardCharsets.UTF_8));
-            }
-        }
-    }
-
-    private static void test5(AnnotationConfigApplicationContext context) throws Exception
-    {
-        Method method = Controller.class.getMethod("test5");
-        Controller controller = new Controller();
-        Object returnValue = method.invoke(controller); // 获取返回值
-
-        HandlerMethod methodHandle = new HandlerMethod(controller, method);
-
-        ModelAndViewContainer container = new ModelAndViewContainer();
-        HandlerMethodReturnValueHandlerComposite composite = getReturnValueHandler();
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        MockHttpServletResponse response = new MockHttpServletResponse();
-        ServletWebRequest webRequest = new ServletWebRequest(request, response);
-        if (composite.supportsReturnType(methodHandle.getReturnType()))
-        { // 检查是否支持此类型的返回值
-            composite.handleReturnValue(returnValue, methodHandle.getReturnType(), container, webRequest);
-            log.info(String.valueOf(container.getModel()));
-            log.info(container.getViewName());
-            if (!container.isRequestHandled())
-            {
-                renderView(context, container, webRequest); // 渲染视图
-            }
-            else
-            {
-                log.info(new String(response.getContentAsByteArray(), StandardCharsets.UTF_8));
-            }
-        }
-    }
-
-    private static void test4(AnnotationConfigApplicationContext context) throws Exception
-    {
-        Method method = Controller.class.getMethod("test4");
-        Controller controller = new Controller();
-        Object returnValue = method.invoke(controller); // 获取返回值
-
-        HandlerMethod methodHandle = new HandlerMethod(controller, method);
-
-        ModelAndViewContainer container = new ModelAndViewContainer();
-        HandlerMethodReturnValueHandlerComposite composite = getReturnValueHandler();
-        MockHttpServletRequest request = new MockHttpServletRequest();
-
-        request.setRequestURI("/test4");
-        UrlPathHelper.defaultInstance.resolveAndCacheLookupPath(request);
-
-        ServletWebRequest webRequest = new ServletWebRequest(request, new MockHttpServletResponse());
-        if (composite.supportsReturnType(methodHandle.getReturnType()))
-        { // 检查是否支持此类型的返回值
-            composite.handleReturnValue(returnValue, methodHandle.getReturnType(), container, webRequest);
-            log.info(String.valueOf(container.getModel()));
-            log.info(container.getViewName());
-            renderView(context, container, webRequest); // 渲染视图
-        }
-    }
-
-    private static void test3(AnnotationConfigApplicationContext context) throws Exception
-    {
-        Method method = Controller.class.getMethod("test3");
-        Controller controller = new Controller();
-        Object returnValue = method.invoke(controller); // 获取返回值
-
-        HandlerMethod methodHandle = new HandlerMethod(controller, method);
-
-        ModelAndViewContainer container = new ModelAndViewContainer();
-        HandlerMethodReturnValueHandlerComposite composite = getReturnValueHandler();
-        MockHttpServletRequest request = new MockHttpServletRequest();
-
-        request.setRequestURI("/test3");
-        UrlPathHelper.defaultInstance.resolveAndCacheLookupPath(request);
-        ServletWebRequest webRequest = new ServletWebRequest(request, new MockHttpServletResponse());
-
-        if (composite.supportsReturnType(methodHandle.getReturnType()))
-        { // 检查是否支持此类型的返回值
-            composite.handleReturnValue(returnValue, methodHandle.getReturnType(), container, webRequest);
-            log.info(String.valueOf(container.getModel()));
-            log.info(container.getViewName());
-            renderView(context, container, webRequest); // 渲染视图
-        }
-    }
-
-    private static void test2(AnnotationConfigApplicationContext context) throws Exception
-    {
-        Method method = Controller.class.getMethod("test2");
-        Controller controller = new Controller();
-        Object returnValue = method.invoke(controller); // 获取返回值
-        HandlerMethod methodHandle = new HandlerMethod(controller, method);
-
-        ModelAndViewContainer container = new ModelAndViewContainer();
-        HandlerMethodReturnValueHandlerComposite composite = getReturnValueHandler();
-        ServletWebRequest webRequest = new ServletWebRequest(new MockHttpServletRequest(), new MockHttpServletResponse());
-        if (composite.supportsReturnType(methodHandle.getReturnType()))
-        { // 检查是否支持此类型的返回值
-            composite.handleReturnValue(returnValue, methodHandle.getReturnType(), container, webRequest);
-            log.info(String.valueOf(container.getModel()));
-            log.info(container.getViewName());
-            renderView(context, container, webRequest); // 渲染视图
-        }
-    }
-
-    private static void test1(AnnotationConfigApplicationContext context) throws Exception
-    {
-        Method method = Controller.class.getMethod("test1");
-        Controller controller = new Controller();
-        Object returnValue = method.invoke(controller); // 获取返回值
-        HandlerMethod methodHandle = new HandlerMethod(controller, method);
-
-        ModelAndViewContainer container = new ModelAndViewContainer();
-        HandlerMethodReturnValueHandlerComposite composite = getReturnValueHandler();
-        ServletWebRequest webRequest = new ServletWebRequest(new MockHttpServletRequest(), new MockHttpServletResponse());
-        if (composite.supportsReturnType(methodHandle.getReturnType()))
-        { // 检查是否支持此类型的返回值
-            composite.handleReturnValue(returnValue, methodHandle.getReturnType(), container, webRequest);
-            log.info(String.valueOf(container.getModel()));
-            log.info(container.getViewName());
-            renderView(context, container, webRequest); // 渲染视图
         }
     }
 
@@ -263,6 +125,9 @@ public class A27
         return composite;
     }
 
+    /**
+     * 使用FreeMarkerViewResolver渲染视图
+     */
     private static void renderView(AnnotationConfigApplicationContext context, ModelAndViewContainer container,
                                    ServletWebRequest webRequest) throws Exception
     {
