@@ -63,7 +63,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.29</version>
+            <version>8.0.30</version>
         </dependency>
 
         <dependency>
@@ -86,11 +86,11 @@
             <artifactId>jackson-dataformat-xml</artifactId>
         </dependency>
 
-        <!--<dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-indexer</artifactId>
             <optional>true</optional>
-        </dependency>-->
+        </dependency>
 
         <dependency>
             <groupId>org.apache.tomcat</groupId>
