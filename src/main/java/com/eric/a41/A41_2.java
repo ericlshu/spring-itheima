@@ -66,7 +66,7 @@ public class A41_2
     @Configuration // 第三方的配置类
     static class AutoConfiguration1
     {
-        @Bean
+        // @Bean
         public Bean1 bean1()
         {
             return new Bean1();
@@ -76,7 +76,7 @@ public class A41_2
     @Configuration // 第三方的配置类
     static class AutoConfiguration2
     {
-        @Bean
+        // @Bean
         public Bean2 bean2()
         {
             return new Bean2();
